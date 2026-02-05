@@ -1,0 +1,147 @@
+@startuml OutOf5K-C4-Code-Parser
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+
+title Code Diagram - Demo Parser Classes
+
+package "Demo Parser Module" {
+    
+    class DemoParser {
+        - file_path: Path
+        - parser: demoparser2.DemoParser
+        --
+        + __init__(file_path: Path)
+        + parse() -> ParsedDemo
+        + get_metadata() -> DemoMetadata
+        + get_events() -> List[GameEvent]
+        + get_ticks(start: int, end: int) -> List[TickData]
+        - _extract_header() -> dict
+        - _parse_events() -> List[RawEvent]
+    }
+    
+    class EventProcessor {
+        - events: List[RawEvent]
+        --
+        + __init__(events: List[RawEvent])
+        + process() -> List[GameEvent]
+        + get_kills() -> List[KillEvent]
+        + get_damage() -> List[DamageEvent]
+        + get_grenades() -> List[GrenadeEvent]
+        - _classify_event(raw: RawEvent) -> GameEvent
+        - _enrich_event(event: GameEvent) -> GameEvent
+    }
+    
+    class PositionTracker {
+        - tick_data: List[TickData]
+        --
+        + __init__(tick_data: List[TickData])
+        + get_player_path(player_id: str, round: int) -> List[Position]
+        + get_positions_at_tick(tick: int) -> Dict[str, Position]
+        + generate_heatmap(player_id: str) -> HeatmapData
+        - _interpolate_positions(start: int, end: int) -> List[Position]
+    }
+    
+    class StatsCalculator {
+        - events: List[GameEvent]
+        - positions: PositionTracker
+        --
+        + __init__(events: List[GameEvent], positions: PositionTracker)
+        + calculate_round_stats(round: int) -> RoundStats
+        + calculate_match_stats() -> MatchStats
+        + calculate_player_stats(player_id: str) -> PlayerStats
+        - _calculate_adr(player_id: str) -> float
+        - _calculate_kast(player_id: str) -> float
+        - _calculate_rating(player_id: str) -> float
+    }
+    
+    class HighlightDetector {
+        - events: List[GameEvent]
+        --
+        + __init__(events: List[GameEvent])
+        + detect_all() -> List[Highlight]
+        + detect_aces() -> List[AceHighlight]
+        + detect_clutches() -> List[ClutchHighlight]
+        + detect_multi_kills() -> List[MultiKillHighlight]
+        - _analyze_round(round: int) -> List[Highlight]
+    }
+}
+
+package "Data Models" {
+    
+    class ParsedDemo {
+        + id: str
+        + metadata: DemoMetadata
+        + rounds: List[Round]
+        + events: List[GameEvent]
+        + players: List[Player]
+    }
+    
+    class DemoMetadata {
+        + map_name: str
+        + played_at: datetime
+        + duration_ticks: int
+        + tickrate: int
+        + server_name: str
+    }
+    
+    class Round {
+        + number: int
+        + winner: Team
+        + win_reason: WinReason
+        + start_tick: int
+        + end_tick: int
+        + events: List[GameEvent]
+    }
+    
+    class GameEvent {
+        + tick: int
+        + round: int
+        + event_type: EventType
+        + data: dict
+    }
+    
+    class Position {
+        + x: float
+        + y: float
+        + z: float
+        + view_x: float
+        + view_y: float
+    }
+    
+    class Player {
+        + steam_id: str
+        + name: str
+        + team: Team
+    }
+    
+    enum EventType {
+        KILL
+        DAMAGE
+        GRENADE_THROW
+        GRENADE_DETONATE
+        BOMB_PLANT
+        BOMB_DEFUSE
+        ROUND_START
+        ROUND_END
+    }
+    
+    enum Team {
+        CT
+        T
+        SPECTATOR
+    }
+}
+
+DemoParser --> EventProcessor : creates
+DemoParser --> PositionTracker : creates
+EventProcessor --> GameEvent : produces
+PositionTracker --> Position : tracks
+StatsCalculator --> EventProcessor : uses
+StatsCalculator --> PositionTracker : uses
+HighlightDetector --> EventProcessor : uses
+DemoParser --> ParsedDemo : returns
+ParsedDemo --> DemoMetadata : contains
+ParsedDemo --> Round : contains
+ParsedDemo --> Player : contains
+Round --> GameEvent : contains
+
+@enduml

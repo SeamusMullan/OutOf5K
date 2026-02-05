@@ -1,0 +1,197 @@
+\chapter{Data Flow}
+\label{ch:data-flow}
+
+\section{Overview}
+
+\newthought{Data flows through} OutOf5K in several key pathways:
+
+\begin{enumerate}
+    \item Demo import and parsing
+    \item Statistics calculation and storage
+    \item Real-time playback visualization
+    \item External API synchronization
+\end{enumerate}
+
+\section{Demo Import Pipeline}
+
+The demo import pipeline transforms raw CS2 demo files into structured, queryable data.
+
+\begin{figure*}[h]
+    \centering
+    \includegraphics[width=0.95\textwidth]{figures/uml/sequence/demo-import}
+    \caption{Demo import sequence diagram}
+    \label{fig:demo-import}
+\end{figure*}
+
+\subsection{Pipeline Stages}
+
+\begin{enumerate}
+    \item \textbf{Import}: User selects demo files
+    \item \textbf{Validate}: Check file validity and format
+    \item \textbf{Parse}: Extract data via Python service
+    \item \textbf{Store}: Save to SQLite database
+\end{enumerate}
+
+\subsection{Parsing Process}
+
+The Python service extracts several categories of data:
+
+\begin{margintable}
+    \centering
+    \begin{tabular}{@{}lr@{}}
+        \toprule
+        Phase & Progress \\
+        \midrule
+        Header & 0--10\% \\
+        Events & 10--60\% \\
+        Positions & 60--80\% \\
+        Statistics & 80--95\% \\
+        Highlights & 95--100\% \\
+        \bottomrule
+    \end{tabular}
+    \caption{Parsing phases}
+\end{margintable}
+
+\begin{description}
+    \item[Metadata] Map, date, server, duration
+    \item[Events] Kills, damage, grenades, bomb actions
+    \item[Positions] Player locations over time
+    \item[Statistics] Per-player performance metrics
+    \item[Highlights] Aces, clutches, multi-kills
+\end{description}
+
+\section{IPC Protocol}
+
+Communication between Tauri and Python uses JSON over stdin/stdout.
+
+\subsection{Message Format}
+
+\textbf{Request (Tauri → Python):}
+\begin{lstlisting}[language=json]
+{
+  "id": "uuid-string",
+  "cmd": "parse",
+  "params": {
+    "file_path": "/path/to/demo.dem"
+  }
+}
+\end{lstlisting}
+
+\textbf{Response (Python → Tauri):}
+\begin{lstlisting}[language=json]
+{
+  "id": "uuid-string",
+  "status": "success",
+  "data": { ... }
+}
+\end{lstlisting}
+
+\subsection{Progress Updates}
+
+During long-running operations, the Python service sends progress updates:
+
+\begin{lstlisting}[language=json]
+{
+  "id": "uuid-string",
+  "status": "progress",
+  "progress": 50,
+  "message": "Processing events..."
+}
+\end{lstlisting}
+
+\section{Event System}
+
+\subsection{Game Events}
+
+Game events extracted from demos follow a hierarchical model:
+
+\begin{itemize}
+    \item \textbf{CombatEvent}: Kills, damage, blinds
+    \item \textbf{WeaponEvent}: Fire, reload
+    \item \textbf{GrenadeEvent}: Throw, detonate
+    \item \textbf{BombEvent}: Plant, defuse, explode
+    \item \textbf{RoundEvent}: Start, end, freeze
+\end{itemize}
+
+\subsection{Application Events}
+
+The Tauri event system propagates updates to the frontend:
+
+\begin{lstlisting}[language=Rust]
+app.emit_all("demo:progress", DemoProgressPayload {
+    demo_id: id,
+    progress: 50,
+    message: "Parsing events...",
+});
+\end{lstlisting}
+
+\section{Playback Data Flow}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\linewidth]{figures/uml/sequence/playback}
+    \caption{Playback sequence diagram}
+    \label{fig:playback}
+\end{figure}
+
+During playback, data flows as follows:
+
+\begin{enumerate}
+    \item User scrubs timeline
+    \item Store updates current tick
+    \item Map canvas queries positions at tick
+    \item Canvas renders player sprites
+    \item Event indicators update
+\end{enumerate}
+
+\section{External API Sync}
+
+\begin{figure*}[h]
+    \centering
+    \includegraphics[width=0.9\textwidth]{figures/uml/sequence/api-sync}
+    \caption{External API synchronization flow}
+    \label{fig:api-sync}
+\end{figure*}
+
+External data is fetched and cached:
+
+\begin{enumerate}
+    \item Check cache freshness (24h TTL)
+    \item If stale, fetch from external API
+    \item Parse and transform to internal format
+    \item Store in SQLite cache table
+    \item Return to frontend
+\end{enumerate}
+
+\section{Query Patterns}
+
+Common database queries are optimized with indexes:
+
+\begin{lstlisting}[language=SQL]
+-- Get all kills for a player
+SELECT * FROM events 
+WHERE demo_id = ? 
+  AND event_type = 'KILL' 
+  AND JSON_EXTRACT(data, '$.attacker_id') = ?
+ORDER BY tick;
+
+-- Player stats over time
+SELECT 
+    strftime('%Y-%W', d.played_at) as week,
+    AVG(pms.rating) as avg_rating
+FROM player_match_stats pms
+JOIN demos d ON pms.demo_id = d.id
+WHERE pms.player_id = ?
+GROUP BY week;
+\end{lstlisting}
+
+\section{Performance Considerations}
+
+\marginnote{Demo files can exceed 100MB, requiring careful memory management.}
+
+\begin{description}
+    \item[Lazy Loading] Positions loaded on demand
+    \item[Batch Inserts] Events inserted in batches of 1000
+    \item[Index Strategy] Indexes on common query paths
+    \item[Progress Streaming] Incremental updates during parsing
+\end{description}

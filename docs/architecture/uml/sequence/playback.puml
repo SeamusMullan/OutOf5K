@@ -1,0 +1,146 @@
+@startuml Playback-Sequence
+!theme plain
+
+title Demo Playback & Timeline Scrubbing - Sequence Diagram
+
+actor User
+participant "Frontend\n(Svelte)" as FE
+participant "Timeline\nComponent" as TL
+participant "Map Canvas\n(Pixi.js)" as MC
+participant "Stores" as ST
+participant "API Layer" as API
+participant "Tauri Backend\n(Rust)" as TB
+database "SQLite" as DB
+
+== Initial Demo Load ==
+
+User -> FE: Opens demo viewer
+activate FE
+
+FE -> API: getDemo(demoId)
+activate API
+API -> TB: invoke("get_demo", {id})
+activate TB
+TB -> DB: SELECT * FROM demos WHERE id = ?
+DB --> TB: Demo metadata
+TB -> DB: SELECT * FROM rounds WHERE demo_id = ?
+DB --> TB: Rounds
+TB --> API: DemoWithRounds
+deactivate TB
+API --> FE: DemoWithRounds
+deactivate API
+
+FE -> ST: setCurrentDemo(demo)
+FE -> TL: initialize(rounds)
+activate TL
+TL -> TL: Render round markers
+TL --> FE: Ready
+deactivate TL
+
+FE -> MC: loadMap(demo.mapName)
+activate MC
+MC -> MC: Load radar image
+MC --> FE: Map ready
+deactivate MC
+
+FE --> User: Show demo viewer
+
+== User Selects Round ==
+
+User -> TL: Click on Round 5
+activate TL
+
+TL -> ST: setCurrentRound(5)
+TL -> API: getRoundEvents(demoId, round: 5)
+activate API
+API -> TB: invoke("get_round_events", {demoId, round: 5})
+activate TB
+TB -> DB: SELECT * FROM events\nWHERE demo_id = ? AND round_id = ?
+DB --> TB: Events[]
+TB --> API: Events[]
+deactivate TB
+API --> ST: Store events
+deactivate API
+
+TL -> API: getRoundPositions(demoId, round: 5)
+activate API
+API -> TB: invoke("get_round_positions", {...})
+activate TB
+TB -> DB: Query tick positions
+DB --> TB: PositionData
+TB --> API: PositionData
+deactivate TB
+API --> ST: Store positions
+deactivate API
+
+ST --> MC: Position data updated
+MC -> MC: Render initial positions
+TL --> FE: Round loaded
+deactivate TL
+
+FE --> User: Show Round 5 start
+
+== Timeline Scrubbing ==
+
+User -> TL: Drag timeline to tick 15000
+activate TL
+
+TL -> TL: Calculate tick from position
+TL -> ST: setCurrentTick(15000)
+
+ST --> MC: Tick changed
+activate MC
+MC -> MC: Get positions at tick 15000
+MC -> MC: Interpolate if needed
+MC -> MC: Update player sprites
+MC -> MC: Render utility in flight
+MC --> FE: Frame rendered
+deactivate MC
+
+TL -> TL: Update tick marker
+TL -> TL: Show tick number
+TL --> User: Visual feedback
+
+deactivate TL
+
+== Play Mode ==
+
+User -> TL: Click Play button
+activate TL
+
+TL -> TL: Start animation loop
+
+loop Every frame (60fps)
+    TL -> TL: Increment tick (by tickrate/60)
+    TL -> ST: setCurrentTick(newTick)
+    
+    ST --> MC: Tick changed
+    MC -> MC: Update positions
+    MC --> FE: Render frame
+    
+    alt Event at this tick
+        ST --> FE: Event occurred
+        FE -> FE: Show event indicator\n(kill feed, etc.)
+    end
+    
+    TL -> TL: Check if round ended
+    alt Round ended
+        TL -> TL: Pause or advance
+    end
+end
+
+User -> TL: Click Pause
+TL -> TL: Stop animation loop
+deactivate TL
+
+== Speed Control ==
+
+User -> TL: Set speed to 2x
+activate TL
+TL -> TL: Update tick increment rate
+TL --> User: Speed updated
+deactivate TL
+
+deactivate FE
+
+@enduml

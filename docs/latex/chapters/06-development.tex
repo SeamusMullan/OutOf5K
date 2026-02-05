@@ -1,0 +1,215 @@
+\chapter{Development}
+\label{ch:development}
+
+\newthought{This chapter covers} the practical aspects of developing OutOf5K, including setup, workflow, and contribution guidelines.
+
+\section{Prerequisites}
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{@{}lll@{}}
+        \toprule
+        \textbf{Software} & \textbf{Version} & \textbf{Purpose} \\
+        \midrule
+        Node.js & 20.x LTS & Frontend \\
+        Rust & 1.75+ & Tauri backend \\
+        Python & 3.11+ & Demo parsing \\
+        pnpm & 8.x & Package management \\
+        \bottomrule
+    \end{tabular}
+    \caption{Required software}
+\end{table}
+
+\section{Quick Start}
+
+\begin{lstlisting}[language=bash]
+# Clone repository
+git clone https://github.com/your-org/outof5k.git
+cd outof5k
+
+# Install dependencies
+pnpm install
+
+# Set up Python
+cd python
+python3.11 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+cd ..
+
+# Run development server
+pnpm tauri dev
+\end{lstlisting}
+
+\section{Project Structure}
+
+\marginnote{The codebase is organized into three main areas: frontend (Svelte), backend (Rust), and parser (Python).}
+
+\begin{description}
+    \item[\texttt{src/}] Svelte frontend
+    \item[\texttt{src-tauri/}] Rust/Tauri backend
+    \item[\texttt{python/}] Python demo parser
+    \item[\texttt{docs/}] Documentation
+\end{description}
+
+\subsection{Frontend Structure}
+
+\begin{lstlisting}
+src/
+├── lib/
+│   ├── components/    # UI components
+│   ├── stores/        # Svelte stores
+│   ├── api/           # Tauri IPC wrappers
+│   └── utils/         # Utilities
+└── routes/            # SvelteKit pages
+\end{lstlisting}
+
+\subsection{Backend Structure}
+
+\begin{lstlisting}
+src-tauri/src/
+├── commands/          # IPC handlers
+├── services/          # Business logic
+├── db/                # Database layer
+├── models/            # Domain models
+└── api/               # External clients
+\end{lstlisting}
+
+\section{Development Workflow}
+
+\subsection{Branch Strategy}
+
+\begin{itemize}
+    \item \texttt{main}: Production-ready code
+    \item \texttt{develop}: Integration branch
+    \item \texttt{feature/*}: New features
+    \item \texttt{fix/*}: Bug fixes
+\end{itemize}
+
+\subsection{Commit Messages}
+
+Follow Conventional Commits:
+
+\begin{lstlisting}
+feat(parser): add CS2 demo format v4 support
+fix(ui): handle empty demo list
+docs(readme): update installation steps
+\end{lstlisting}
+
+\section{Testing}
+
+\subsection{Frontend}
+
+\begin{lstlisting}[language=bash]
+pnpm test           # Run tests
+pnpm test:coverage  # With coverage
+pnpm test:watch     # Watch mode
+\end{lstlisting}
+
+\subsection{Rust}
+
+\begin{lstlisting}[language=bash]
+cd src-tauri
+cargo test              # All tests
+cargo test -- --nocapture  # With output
+\end{lstlisting}
+
+\subsection{Python}
+
+\begin{lstlisting}[language=bash]
+cd python
+pytest                  # All tests
+pytest --cov            # With coverage
+\end{lstlisting}
+
+\section{Code Quality}
+
+\subsection{Linting}
+
+\begin{lstlisting}[language=bash]
+# Frontend
+pnpm lint
+
+# Rust
+cargo clippy
+
+# Python
+ruff check .
+\end{lstlisting}
+
+\subsection{Formatting}
+
+\begin{lstlisting}[language=bash]
+# Frontend
+pnpm format
+
+# Rust
+cargo fmt
+
+# Python
+black .
+\end{lstlisting}
+
+\section{Building}
+
+\subsection{Development}
+
+\begin{lstlisting}[language=bash]
+pnpm tauri dev
+\end{lstlisting}
+
+\subsection{Production}
+
+\begin{lstlisting}[language=bash]
+pnpm tauri build
+
+# Outputs:
+# macOS: src-tauri/target/release/bundle/dmg/
+# Linux: src-tauri/target/release/bundle/deb/
+# Windows: src-tauri/target/release/bundle/msi/
+\end{lstlisting}
+
+\section{Contributing}
+
+\subsection{Process}
+
+\begin{enumerate}
+    \item Fork the repository
+    \item Create a feature branch
+    \item Make changes with tests
+    \item Submit a pull request
+    \item Address review feedback
+\end{enumerate}
+
+\subsection{Code Review Criteria}
+
+\begin{itemize}
+    \item Correctness: Does it work?
+    \item Tests: Are there adequate tests?
+    \item Style: Does it follow guidelines?
+    \item Performance: Any concerns?
+    \item Documentation: Is it documented?
+\end{itemize}
+
+\section{Debugging}
+
+\subsection{Frontend}
+
+Open DevTools with \texttt{Cmd+Option+I} (Mac) or \texttt{Ctrl+Shift+I} (Windows/Linux).
+
+\subsection{Rust}
+
+\begin{lstlisting}[language=bash]
+RUST_BACKTRACE=1 cargo run
+\end{lstlisting}
+
+\subsection{Database}
+
+\begin{lstlisting}[language=bash]
+sqlite3 ~/Library/Application\ Support/\
+    com.outof5k.app/outof5k.db
+
+.tables
+.schema demos
+SELECT COUNT(*) FROM demos;
+\end{lstlisting}

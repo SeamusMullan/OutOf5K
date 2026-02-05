@@ -1,0 +1,32 @@
+@startuml OutOf5K-C4-Container
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+title Container Diagram for OutOf5K
+
+Person(user, "CS2 Player", "A Counter-Strike 2 player seeking gameplay improvement")
+
+System_Boundary(outof5k, "OutOf5K Desktop Application") {
+    Container(frontend, "Frontend", "Svelte 5, TypeScript, Pixi.js", "Provides the user interface for demo review, statistics visualization, and map overlays")
+    
+    Container(tauri_backend, "Tauri Backend", "Rust, Tauri v2", "Handles native OS integration, file system access, database operations, and Python process management")
+    
+    Container(python_service, "Python Service", "Python 3.11+, demoparser2", "Parses CS2 demo files and extracts game events, player positions, and statistics")
+    
+    ContainerDb(sqlite, "SQLite Database", "SQLite 3", "Stores parsed demo data, player statistics, user preferences, and cached API responses")
+}
+
+System_Ext(steam, "Steam Platform", "Authentication and match history")
+System_Ext(hltv, "HLTV", "Pro player statistics")
+System_Ext(faceit, "Faceit/ESEA", "Competitive match data")
+
+Rel(user, frontend, "Interacts with", "Desktop Window")
+Rel(frontend, tauri_backend, "Sends commands, receives data", "Tauri IPC (JSON)")
+Rel(tauri_backend, sqlite, "Reads/writes data", "SQLite Protocol")
+Rel(tauri_backend, python_service, "Sends parse requests, receives events", "Subprocess (stdin/stdout JSON)")
+Rel(tauri_backend, steam, "Authenticates, fetches history", "HTTPS/OAuth")
+Rel(tauri_backend, hltv, "Fetches pro data", "HTTPS")
+Rel(tauri_backend, faceit, "Fetches match data", "HTTPS")
+
+SHOW_LEGEND()
+
+@enduml

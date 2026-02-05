@@ -1,0 +1,319 @@
+@startuml Domain-Models-Class
+!theme plain
+
+title Core Domain Models - Class Diagram
+
+package "Demo Domain" {
+    
+    class Demo {
+        + id: String
+        + file_path: String
+        + file_hash: String
+        + map_name: MapName
+        + played_at: DateTime
+        + duration_ticks: u32
+        + tickrate: u32
+        + status: DemoStatus
+        + parsed_at: Option<DateTime>
+        + metadata: DemoMetadata
+        --
+        + rounds(): Vec<Round>
+        + players(): Vec<DemoPlayer>
+        + events(): Vec<GameEvent>
+        + get_stats_for_player(player_id): PlayerMatchStats
+    }
+    
+    class DemoMetadata {
+        + server_name: Option<String>
+        + game_mode: GameMode
+        + competitive: bool
+        + match_id: Option<String>
+        + faceit_match_id: Option<String>
+    }
+    
+    enum DemoStatus {
+        PENDING
+        PARSING
+        PARSED
+        ERROR
+    }
+    
+    enum MapName {
+        DUST2
+        MIRAGE
+        INFERNO
+        NUKE
+        OVERPASS
+        ANCIENT
+        ANUBIS
+        VERTIGO
+        OTHER(String)
+    }
+}
+
+package "Round Domain" {
+    
+    class Round {
+        + id: i64
+        + demo_id: String
+        + round_number: u32
+        + winner: Team
+        + win_reason: WinReason
+        + start_tick: u32
+        + end_tick: u32
+        + ct_score: u32
+        + t_score: u32
+        --
+        + events(): Vec<GameEvent>
+        + duration_seconds(): f32
+        + get_player_stats(): Vec<PlayerRoundStats>
+    }
+    
+    enum Team {
+        CT
+        T
+        SPECTATOR
+        UNASSIGNED
+    }
+    
+    enum WinReason {
+        BOMB_DEFUSED
+        BOMB_EXPLODED
+        CT_ELIMINATION
+        T_ELIMINATION
+        TIME_RAN_OUT
+        TARGET_SAVED
+    }
+}
+
+package "Player Domain" {
+    
+    class Player {
+        + steam_id: String
+        + name: String
+        + avatar_url: Option<String>
+        + is_local_user: bool
+        --
+        + get_all_stats(): AggregatedStats
+        + get_demos(): Vec<Demo>
+    }
+    
+    class DemoPlayer {
+        + demo_id: String
+        + player_id: String
+        + team: Team
+        + start_team: Team
+        + crosshair_code: Option<String>
+    }
+    
+    class PlayerRoundStats {
+        + demo_id: String
+        + round_id: i64
+        + player_id: String
+        + kills: u32
+        + deaths: u32
+        + assists: u32
+        + damage: u32
+        + headshots: u32
+        + flash_assists: u32
+        + adr: f32
+    }
+    
+    class PlayerMatchStats {
+        + demo_id: String
+        + player_id: String
+        + kills: u32
+        + deaths: u32
+        + assists: u32
+        + total_damage: u32
+        + headshot_percentage: f32
+        + adr: f32
+        + kast: f32
+        + rating_2: f32
+        + first_kills: u32
+        + first_deaths: u32
+        + clutches_won: u32
+        + clutches_lost: u32
+        --
+        + kd_ratio(): f32
+    }
+}
+
+package "Event Domain" {
+    
+    abstract class GameEvent {
+        + id: i64
+        + demo_id: String
+        + round_id: i64
+        + tick: u32
+        + event_type: EventType
+        --
+        + timestamp_seconds(): f32
+    }
+    
+    class KillEvent extends GameEvent {
+        + attacker_id: String
+        + victim_id: String
+        + assister_id: Option<String>
+        + weapon: Weapon
+        + headshot: bool
+        + penetrated: bool
+        + noscope: bool
+        + through_smoke: bool
+        + attacker_blind: bool
+        + attacker_position: Position
+        + victim_position: Position
+    }
+    
+    class DamageEvent extends GameEvent {
+        + attacker_id: String
+        + victim_id: String
+        + damage: u32
+        + damage_armor: u32
+        + weapon: Weapon
+        + hitgroup: HitGroup
+    }
+    
+    class GrenadeEvent extends GameEvent {
+        + player_id: String
+        + grenade_type: GrenadeType
+        + throw_position: Position
+        + land_position: Position
+        + throw_tick: u32
+        + detonate_tick: u32
+    }
+    
+    class BombEvent extends GameEvent {
+        + player_id: String
+        + bomb_action: BombAction
+        + site: BombSite
+        + position: Position
+    }
+    
+    class PositionSnapshot {
+        + tick: u32
+        + player_id: String
+        + position: Position
+        + velocity: Vector3
+        + view_angles: ViewAngles
+        + health: u32
+        + armor: u32
+        + is_scoped: bool
+        + is_defusing: bool
+    }
+    
+    class Position {
+        + x: f32
+        + y: f32
+        + z: f32
+    }
+    
+    class ViewAngles {
+        + pitch: f32
+        + yaw: f32
+    }
+    
+    enum EventType {
+        KILL
+        DAMAGE
+        GRENADE_THROW
+        GRENADE_DETONATE
+        BOMB_PLANT
+        BOMB_DEFUSE
+        BOMB_EXPLODE
+        ROUND_START
+        ROUND_END
+        PLAYER_HURT
+        BLIND
+    }
+    
+    enum GrenadeType {
+        SMOKE
+        FLASH
+        HE
+        MOLOTOV
+        INCENDIARY
+        DECOY
+    }
+    
+    enum BombAction {
+        PLANT_BEGIN
+        PLANTED
+        DEFUSE_BEGIN
+        DEFUSED
+        EXPLODED
+    }
+}
+
+package "Statistics Domain" {
+    
+    class AggregatedStats {
+        + player_id: String
+        + period: StatPeriod
+        + total_matches: u32
+        + total_rounds: u32
+        + avg_kills: f32
+        + avg_deaths: f32
+        + avg_adr: f32
+        + avg_rating: f32
+        + headshot_percentage: f32
+        + win_rate: f32
+        --
+        + by_map(): Map<MapName, AggregatedStats>
+        + trend(): StatsTrend
+    }
+    
+    class StatPeriod {
+        + start_date: Date
+        + end_date: Date
+    }
+    
+    class Highlight {
+        + id: i64
+        + demo_id: String
+        + round_id: i64
+        + highlight_type: HighlightType
+        + start_tick: u32
+        + end_tick: u32
+        + player_id: String
+        + description: String
+    }
+    
+    enum HighlightType {
+        ACE
+        QUAD_KILL
+        TRIPLE_KILL
+        CLUTCH_1V1
+        CLUTCH_1V2
+        CLUTCH_1V3
+        CLUTCH_1V4
+        CLUTCH_1V5
+        NINJA_DEFUSE
+        WALLBANG_KILL
+    }
+}
+
+' Relationships
+Demo "1" *-- "many" Round
+Demo "1" *-- "many" DemoPlayer
+Demo "1" -- "1" DemoMetadata
+Demo "1" *-- "many" GameEvent
+
+Round "1" *-- "many" GameEvent
+Round "1" *-- "many" PlayerRoundStats
+
+Player "1" -- "many" DemoPlayer
+Player "1" -- "many" PlayerRoundStats
+Player "1" -- "many" PlayerMatchStats
+Player "1" -- "1" AggregatedStats
+
+DemoPlayer "many" -- "1" Player
+
+GameEvent <|-- KillEvent
+GameEvent <|-- DamageEvent
+GameEvent <|-- GrenadeEvent
+GameEvent <|-- BombEvent
+
+Demo "1" -- "many" Highlight
+
+@enduml

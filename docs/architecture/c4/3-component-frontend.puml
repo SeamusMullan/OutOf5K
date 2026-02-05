@@ -1,0 +1,59 @@
+@startuml OutOf5K-C4-Component-Frontend
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+
+title Component Diagram - Frontend (Svelte Application)
+
+Person(user, "CS2 Player", "Application user")
+
+Container_Boundary(frontend, "Frontend Container") {
+    
+    Component(router, "Router", "SvelteKit", "Handles page navigation and URL routing")
+    
+    Component(dashboard, "Dashboard View", "Svelte Component", "Main landing page showing recent demos, quick stats, and activity feed")
+    
+    Component(demo_list, "Demo Library", "Svelte Component", "Lists all imported demos with filtering, sorting, and search")
+    
+    Component(demo_viewer, "Demo Viewer", "Svelte Component", "Main analysis view with timeline, map, and round-by-round breakdown")
+    
+    Component(stats_view, "Statistics View", "Svelte Component", "Aggregated statistics, trends, and performance graphs")
+    
+    Component(comparison, "Pro Comparison", "Svelte Component", "Side-by-side comparison with professional players")
+    
+    Component(settings, "Settings", "Svelte Component", "User preferences, account management, integrations")
+    
+    Component(map_canvas, "2D Map Canvas", "Pixi.js", "Renders player positions, movement paths, utility trajectories, and heatmaps")
+    
+    Component(charts, "Charts & Graphs", "Chart.js/ECharts", "Renders statistical visualizations, performance trends")
+    
+    Component(timeline, "Timeline Component", "Svelte + Canvas", "Round/tick timeline with scrubbing, event markers")
+    
+    Component(stores, "State Stores", "Svelte Stores", "Global state management for demos, settings, UI state")
+    
+    Component(api_layer, "API Layer", "TypeScript", "Typed wrappers around Tauri IPC commands")
+}
+
+Container(tauri_backend, "Tauri Backend", "Rust", "Native backend")
+
+Rel(user, router, "Navigates", "Mouse/Keyboard")
+Rel(router, dashboard, "Routes to")
+Rel(router, demo_list, "Routes to")
+Rel(router, demo_viewer, "Routes to")
+Rel(router, stats_view, "Routes to")
+Rel(router, comparison, "Routes to")
+Rel(router, settings, "Routes to")
+
+Rel(demo_viewer, map_canvas, "Renders positions on")
+Rel(demo_viewer, timeline, "Controls playback via")
+Rel(stats_view, charts, "Displays data with")
+Rel(comparison, charts, "Displays data with")
+
+Rel(dashboard, stores, "Reads/writes")
+Rel(demo_list, stores, "Reads/writes")
+Rel(demo_viewer, stores, "Reads/writes")
+
+Rel(stores, api_layer, "Invokes commands")
+Rel(api_layer, tauri_backend, "IPC calls", "JSON")
+
+SHOW_LEGEND()
+
+@enduml

@@ -1,0 +1,174 @@
+\chapter{Architecture}
+\label{ch:architecture}
+
+\section{Design Philosophy}
+
+\newthought{OutOf5K follows} several core architectural principles that guide its design:
+
+\begin{description}
+    \item[Local-First] All demo processing happens locally on the user's machine, eliminating server costs and preserving user privacy.
+    
+    \item[Modular Architecture] The system is composed of loosely coupled components that communicate through well-defined interfaces.
+    
+    \item[Progressive Enhancement] Start with essential features and progressively add advanced capabilities.
+    
+    \item[Performance-Conscious] CS2 demo files can be large (100MB+). The architecture handles this through background processing and incremental parsing.
+\end{description}
+
+\section{System Context}
+
+\begin{figure*}[h]
+    \centering
+    \includegraphics[width=0.9\textwidth]{figures/c4/1-context}
+    \caption{C4 Context Diagram showing OutOf5K in relation to external systems}
+    \label{fig:c4-context}
+\end{figure*}
+
+\marginnote{The C4 model provides a hierarchical way to describe software architecture at different levels of abstraction.}
+
+\outof{} operates as a standalone desktop application that interacts with several external systems:
+
+\begin{itemize}
+    \item \textbf{Steam Platform}: User authentication and match history
+    \item \textbf{HLTV}: Professional player statistics and match data
+    \item \textbf{Faceit/ESEA}: Competitive match data and rankings
+    \item \textbf{CS2 Game}: Demo file source
+\end{itemize}
+
+\section{Container Architecture}
+
+The application is composed of four main containers, as shown in Figure~\ref{fig:c4-container}.
+
+\begin{figure*}[h]
+    \centering
+    \includegraphics[width=0.9\textwidth]{figures/c4/2-container}
+    \caption{C4 Container Diagram showing the major components}
+    \label{fig:c4-container}
+\end{figure*}
+
+\subsection{Frontend (Svelte + TypeScript)}
+
+The user interface layer built with Svelte 5 and TypeScript. Key responsibilities:
+
+\begin{itemize}
+    \item Rendering UI components
+    \item User interaction handling
+    \item 2D map visualization via Pixi.js
+    \item Statistics charts and graphs
+    \item State management via Svelte stores
+\end{itemize}
+
+\subsection{Tauri Backend (Rust)}
+
+The desktop application shell and system integration layer:
+
+\begin{itemize}
+    \item Native window management
+    \item File system access for demo files
+    \item SQLite database operations
+    \item Python subprocess management
+    \item IPC command handlers
+\end{itemize}
+
+\subsection{Python Service}
+
+A subprocess handling computationally intensive demo parsing:
+
+\begin{itemize}
+    \item CS2 demo file parsing via demoparser2
+    \item Data extraction and transformation
+    \item Heavy computational analysis
+    \item Future: ML model inference
+\end{itemize}
+
+\subsection{SQLite Database}
+
+Local persistent storage:
+
+\begin{itemize}
+    \item Parsed demo metadata and events
+    \item Player statistics and profiles
+    \item User preferences and settings
+    \item Cached external API data
+\end{itemize}
+
+\section{Component Details}
+
+\subsection{Frontend Components}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\linewidth]{figures/c4/3-component-frontend}
+    \caption{Frontend component diagram}
+    \label{fig:c4-frontend}
+\end{figure}
+
+The frontend is organized into several key components:
+
+\begin{description}
+    \item[Router] Handles page navigation using SvelteKit's routing
+    \item[Dashboard] Main landing page with activity feed
+    \item[Demo Library] Lists all imported demos with filtering
+    \item[Demo Viewer] Main analysis view with timeline and map
+    \item[Map Canvas] Pixi.js-based 2D rendering
+    \item[Stores] Svelte stores for state management
+    \item[API Layer] Typed wrappers around Tauri IPC
+\end{description}
+
+\subsection{Rust Backend Components}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\linewidth]{figures/c4/3-component-rust}
+    \caption{Rust backend component diagram}
+    \label{fig:c4-rust}
+\end{figure}
+
+Key backend components:
+
+\begin{description}
+    \item[Commands] Tauri IPC entry points
+    \item[Services] Business logic orchestration
+    \item[Repositories] Data access layer
+    \item[Python Bridge] Subprocess communication
+    \item[API Clients] External service integration
+\end{description}
+
+\subsection{Python Service Components}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\linewidth]{figures/c4/3-component-python}
+    \caption{Python service component diagram}
+    \label{fig:c4-python}
+\end{figure}
+
+The Python service includes:
+
+\begin{description}
+    \item[Main Loop] Command dispatch and response handling
+    \item[Demo Parser] demoparser2 integration
+    \item[Event Processor] Game event classification
+    \item[Stats Calculator] Performance metrics
+    \item[Highlight Detector] Notable moment detection
+\end{description}
+
+\section{Technology Rationale}
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{@{}ll@{}}
+        \toprule
+        \textbf{Decision} & \textbf{Rationale} \\
+        \midrule
+        Tauri & Small bundles, native performance \\
+        Svelte & Minimal boilerplate, reactive \\
+        Python subprocess & Best demo parser available \\
+        SQLite & Zero-config, file-based \\
+        Pixi.js & High-performance 2D canvas \\
+        \bottomrule
+    \end{tabular}
+    \caption{Key technology decisions}
+\end{table}
+
+Detailed rationale for each decision is documented in the Architecture Decision Records (Chapter~\ref{ch:decisions}).

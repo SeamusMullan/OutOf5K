@@ -1,0 +1,252 @@
+\chapter{Design Patterns}
+\label{ch:patterns}
+
+\newthought{This chapter describes} the design patterns used throughout OutOf5K, with implementation examples specific to this codebase.
+
+\section{Pattern Summary}
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{@{}lll@{}}
+        \toprule
+        \textbf{Pattern} & \textbf{Category} & \textbf{Primary Use} \\
+        \midrule
+        Repository & Structural & Database access \\
+        Command & Behavioral & Tauri IPC \\
+        Observer & Behavioral & Events, stores \\
+        Factory & Creational & Parser creation \\
+        Strategy & Behavioral & Analysis algorithms \\
+        Adapter & Structural & API clients \\
+        Facade & Structural & Python bridge \\
+        Builder & Creational & Query construction \\
+        \bottomrule
+    \end{tabular}
+    \caption{Design patterns used in OutOf5K}
+\end{table}
+
+\section{Repository Pattern}
+
+\marginnote{The Repository pattern abstracts data persistence, providing a collection-like interface for domain objects.}
+
+The Repository pattern separates business logic from data access:
+
+\begin{lstlisting}[language=Rust]
+pub struct DemoRepository {
+    pool: SqlitePool,
+}
+
+impl DemoRepository {
+    pub async fn find_by_id(
+        &self, 
+        id: &str
+    ) -> Result<Option<Demo>> {
+        sqlx::query_as!(Demo, 
+            "SELECT * FROM demos WHERE id = ?", 
+            id
+        )
+        .fetch_optional(&self.pool)
+        .await
+    }
+    
+    pub async fn save(&self, demo: &Demo) -> Result<()> {
+        // Insert logic
+    }
+}
+\end{lstlisting}
+
+\textbf{Benefits:}
+\begin{itemize}
+    \item Testability via mocking
+    \item Database implementation flexibility
+    \item Centralized query logic
+\end{itemize}
+
+\section{Command Pattern}
+
+In Tauri, commands encapsulate IPC requests:
+
+\begin{lstlisting}[language=Rust]
+#[tauri::command]
+pub async fn import_demos(
+    state: State<'_, AppState>,
+    paths: Vec<String>,
+) -> Result<ImportResult, CommandError> {
+    state.demo_service
+        .import_demos(&paths)
+        .await
+}
+\end{lstlisting}
+
+Frontend invocation:
+
+\begin{lstlisting}[language=TypeScript]
+import { invoke } from '@tauri-apps/api/tauri';
+
+const result = await invoke('import_demos', { 
+    paths: ['/path/to/demo.dem'] 
+});
+\end{lstlisting}
+
+\section{Observer Pattern}
+
+\subsection{Svelte Stores}
+
+Svelte's reactive stores implement the Observer pattern:
+
+\begin{lstlisting}[language=TypeScript]
+import { writable } from 'svelte/store';
+
+function createDemoStore() {
+    const { subscribe, update } = writable({
+        demos: [],
+        loading: false,
+    });
+
+    return {
+        subscribe,
+        addDemo(demo) {
+            update(s => ({
+                ...s,
+                demos: [demo, ...s.demos]
+            }));
+        },
+    };
+}
+
+export const demoStore = createDemoStore();
+\end{lstlisting}
+
+\subsection{Tauri Events}
+
+Backend-to-frontend notifications:
+
+\begin{lstlisting}[language=Rust]
+// Backend
+app.emit_all("demo:progress", payload);
+
+// Frontend
+listen('demo:progress', (event) => {
+    updateProgress(event.payload);
+});
+\end{lstlisting}
+
+\section{Factory Pattern}
+
+\marginnote{The Factory pattern creates objects without specifying the exact class, useful when creation depends on runtime conditions.}
+
+Creating the appropriate parser for demo format versions:
+
+\begin{lstlisting}[language=Python]
+class DemoParserFactory:
+    @staticmethod
+    def create(file_path: Path) -> DemoParser:
+        version = detect_version(file_path)
+        
+        if version == DemoVersion.CS2:
+            return CS2DemoParser(file_path)
+        elif version == DemoVersion.CSGO:
+            return LegacyCSGOParser(file_path)
+        else:
+            raise UnsupportedDemoError()
+\end{lstlisting}
+
+\section{Strategy Pattern}
+
+Different analysis algorithms share a common interface:
+
+\begin{lstlisting}[language=Python]
+class Analyzer(ABC):
+    @abstractmethod
+    def analyze(self, demo: ParsedDemo) -> Result:
+        pass
+
+class StatsAnalyzer(Analyzer):
+    def analyze(self, demo: ParsedDemo) -> Result:
+        # Calculate statistics
+        pass
+
+class HighlightAnalyzer(Analyzer):
+    def analyze(self, demo: ParsedDemo) -> Result:
+        # Detect highlights
+        pass
+
+# Usage
+pipeline = AnalysisPipeline([
+    StatsAnalyzer(),
+    HighlightAnalyzer(),
+])
+results = pipeline.run(parsed_demo)
+\end{lstlisting}
+
+\section{Adapter Pattern}
+
+Adapting external APIs to internal interfaces:
+
+\begin{lstlisting}[language=Rust]
+#[async_trait]
+pub trait PlayerStatsProvider {
+    async fn get_stats(&self, id: &str) 
+        -> Result<PlayerStats>;
+}
+
+// HLTV adapter
+pub struct HLTVAdapter { /* ... */ }
+
+#[async_trait]
+impl PlayerStatsProvider for HLTVAdapter {
+    async fn get_stats(&self, id: &str) 
+        -> Result<PlayerStats> {
+        let html = self.fetch_page(id).await?;
+        let hltv_stats = parse_html(&html)?;
+        
+        // Adapt to internal format
+        Ok(PlayerStats {
+            rating: hltv_stats.rating_2_0,
+            kd_ratio: hltv_stats.kd,
+            // ...
+        })
+    }
+}
+\end{lstlisting}
+
+\section{Facade Pattern}
+
+The Python bridge provides a simplified interface to the parsing subsystem:
+
+\begin{lstlisting}[language=Rust]
+pub struct PythonBridge {
+    process: Child,
+    // ...
+}
+
+impl PythonBridge {
+    // High-level API (Facade)
+    pub async fn parse_demo(&mut self, path: &Path) 
+        -> Result<ParsedDemo> {
+        self.send_command("parse", json!({
+            "file_path": path
+        })).await
+    }
+    
+    pub async fn get_metadata(&mut self, path: &Path) 
+        -> Result<DemoMetadata> {
+        self.send_command("get_metadata", json!({
+            "file_path": path
+        })).await
+    }
+}
+\end{lstlisting}
+
+\section{Builder Pattern}
+
+Constructing complex database queries:
+
+\begin{lstlisting}[language=Rust]
+let (query, bindings) = DemoQueryBuilder::new()
+    .with_status(DemoStatus::Parsed)
+    .with_map("de_dust2")
+    .played_after(week_ago)
+    .order_by_played_at(true)
+    .limit(20)
+    .build();
+\end{lstlisting}

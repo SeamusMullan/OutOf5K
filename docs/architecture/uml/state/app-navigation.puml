@@ -1,0 +1,157 @@
+@startuml App-Navigation-State
+!theme plain
+
+title Application Navigation State Machine
+
+[*] --> Initializing
+
+state Initializing {
+    [*] --> LoadingConfig
+    LoadingConfig --> CheckingDatabase
+    CheckingDatabase --> RunningMigrations : migrations needed
+    CheckingDatabase --> StartingPython : database ready
+    RunningMigrations --> StartingPython : migrations complete
+    StartingPython --> Ready : python ready
+    StartingPython --> PythonError : failed to start
+}
+
+Ready --> Dashboard : initialization complete
+
+state Dashboard {
+    [*] --> Overview
+    Overview : Recent demos
+    Overview : Quick stats
+    Overview : Activity feed
+}
+
+state DemoLibrary {
+    [*] --> ListView
+    
+    ListView : All demos list
+    ListView : Filters (map, date, player)
+    ListView : Sort options
+    
+    ListView --> DetailView : select demo
+    DetailView --> ListView : back
+    
+    DetailView : Demo metadata
+    DetailView : Round overview
+    DetailView : Player scoreboard
+    
+    DetailView --> DemoViewer : open viewer
+}
+
+state DemoViewer {
+    [*] --> MapView
+    
+    state MapView {
+        [*] --> Idle
+        Idle --> Playing : play
+        Playing --> Paused : pause
+        Paused --> Playing : resume
+        Playing --> Idle : round end
+        Idle --> Scrubbing : drag timeline
+        Scrubbing --> Idle : release
+    }
+    
+    MapView --> EventList : show events tab
+    EventList --> MapView : show map tab
+    
+    MapView --> StatsTab : show stats tab
+    StatsTab --> MapView : show map tab
+}
+
+state Statistics {
+    [*] --> PersonalStats
+    
+    PersonalStats : Overall performance
+    PersonalStats : Trends over time
+    PersonalStats : Per-map breakdown
+    
+    PersonalStats --> MapStats : select map
+    MapStats --> PersonalStats : back to overview
+    
+    PersonalStats --> WeaponStats : select weapons
+    WeaponStats --> PersonalStats : back
+}
+
+state ProComparison {
+    [*] --> SelectPro
+    
+    SelectPro : Search pro players
+    SelectPro : Browse top players
+    
+    SelectPro --> CompareView : select player
+    
+    CompareView : Side-by-side stats
+    CompareView : Heatmap comparison
+    CompareView : Positioning diff
+    
+    CompareView --> SelectPro : change player
+}
+
+state Settings {
+    [*] --> General
+    
+    General --> Accounts : accounts tab
+    Accounts --> General : general tab
+    
+    General --> Appearance : appearance tab
+    Appearance --> General : general tab
+    
+    General --> Data : data tab
+    Data --> General : general tab
+    
+    state Accounts {
+        [*] --> AccountsList
+        AccountsList --> SteamAuth : connect Steam
+        SteamAuth --> AccountsList : complete/cancel
+        AccountsList --> FaceitAuth : connect Faceit
+        FaceitAuth --> AccountsList : complete/cancel
+    }
+}
+
+' Navigation transitions
+Dashboard --> DemoLibrary : demos nav
+Dashboard --> Statistics : stats nav
+Dashboard --> ProComparison : compare nav
+Dashboard --> Settings : settings nav
+
+DemoLibrary --> Dashboard : home nav
+DemoLibrary --> Statistics : stats nav
+DemoLibrary --> ProComparison : compare nav
+DemoLibrary --> Settings : settings nav
+
+DemoViewer --> DemoLibrary : back
+DemoViewer --> Dashboard : home nav
+
+Statistics --> Dashboard : home nav
+Statistics --> DemoLibrary : demos nav
+Statistics --> ProComparison : compare nav
+Statistics --> Settings : settings nav
+
+ProComparison --> Dashboard : home nav
+ProComparison --> DemoLibrary : demos nav
+ProComparison --> Statistics : stats nav
+ProComparison --> Settings : settings nav
+
+Settings --> Dashboard : home nav
+Settings --> DemoLibrary : demos nav
+Settings --> Statistics : stats nav
+Settings --> ProComparison : compare nav
+
+' Error states
+Initializing --> InitError : critical error
+InitError --> [*] : exit app
+
+note right of Initializing
+  Shows splash screen
+  with progress indicator
+end note
+
+note right of DemoViewer
+  Full-screen or 
+  panel view mode
+end note
+
+@enduml

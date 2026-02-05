@@ -1,0 +1,54 @@
+@startuml OutOf5K-C4-Component-Python
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+
+title Component Diagram - Python Service (Demo Parser)
+
+Container(tauri_backend, "Tauri Backend", "Rust", "Main application backend")
+
+Container_Boundary(python_service, "Python Service Container") {
+    
+    Component(main_loop, "Main Loop", "Python", "Entry point - listens for commands on stdin, dispatches to handlers, writes responses to stdout")
+    
+    Component(command_handler, "Command Handler", "Python Module", "Routes incoming commands to appropriate processors, validates input")
+    
+    Component(demo_parser, "Demo Parser", "demoparser2", "Core parsing logic - extracts raw events, positions, and metadata from .dem files")
+    
+    Component(event_processor, "Event Processor", "Python Module", "Transforms raw demo events into structured game events (kills, damage, utility)")
+    
+    Component(position_tracker, "Position Tracker", "Python Module", "Tracks player positions over time, calculates movement paths")
+    
+    Component(stats_calculator, "Stats Calculator", "Python Module", "Calculates per-round and per-match statistics from processed events")
+    
+    Component(highlight_detector, "Highlight Detector", "Python Module", "Identifies notable moments (aces, clutches, multi-kills) from event stream")
+    
+    Component(data_models, "Data Models", "Pydantic", "Typed data structures for demos, rounds, events, players - handles serialization")
+    
+    Component(output_formatter, "Output Formatter", "Python Module", "Serializes results to JSON for transmission back to Rust")
+}
+
+Rel(tauri_backend, main_loop, "Sends commands", "stdin JSON")
+Rel(main_loop, command_handler, "Dispatches")
+Rel(command_handler, demo_parser, "Parse command")
+Rel(demo_parser, event_processor, "Raw events")
+Rel(demo_parser, position_tracker, "Position data")
+Rel(event_processor, stats_calculator, "Processed events")
+Rel(event_processor, highlight_detector, "Event stream")
+Rel(stats_calculator, data_models, "Uses")
+Rel(highlight_detector, data_models, "Uses")
+Rel(position_tracker, data_models, "Uses")
+Rel(data_models, output_formatter, "Serializes")
+Rel(main_loop, tauri_backend, "Returns results", "stdout JSON")
+
+note right of demo_parser
+  Uses demoparser2 library
+  for CS2/Source 2 demos
+end note
+
+note right of data_models
+  Pydantic models ensure
+  type safety and validation
+end note
+
+SHOW_LEGEND()
+
+@enduml

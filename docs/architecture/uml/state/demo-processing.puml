@@ -1,0 +1,91 @@
+@startuml Demo-Processing-State
+!theme plain
+
+title Demo Processing State Machine
+
+[*] --> Discovered : File detected/imported
+
+state Discovered {
+    [*] --> Validating
+    Validating --> Valid : passes validation
+    Validating --> Invalid : fails validation
+    Invalid --> [*] : removed from queue
+}
+
+Valid --> Queued : added to parse queue
+
+state Queued {
+    [*] --> Waiting
+    Waiting --> Ready : parser available
+}
+
+Ready --> Parsing : parser starts
+
+state Parsing {
+    [*] --> ExtractingHeader
+    
+    ExtractingHeader : Reading demo header
+    ExtractingHeader : Extracting metadata
+    
+    ExtractingHeader --> ParsingEvents : header complete
+    
+    ParsingEvents : Processing game events
+    ParsingEvents : Tracking positions
+    ParsingEvents : Progress: 10-90%
+    
+    ParsingEvents --> CalculatingStats : events parsed
+    
+    CalculatingStats : Computing player stats
+    CalculatingStats : Detecting highlights
+    CalculatingStats : Progress: 90-100%
+    
+    CalculatingStats --> [*] : stats complete
+}
+
+Parsing --> Storing : parsing complete
+Parsing --> Failed : parser error
+
+state Storing {
+    [*] --> SavingMetadata
+    SavingMetadata --> SavingRounds
+    SavingRounds --> SavingEvents
+    SavingEvents --> SavingStats
+    SavingStats --> [*]
+}
+
+Storing --> Parsed : storage complete
+Storing --> Failed : database error
+
+state Parsed {
+    [*] --> Ready
+    Ready : Available for viewing
+    Ready : Stats calculated
+    Ready : Highlights detected
+}
+
+state Failed {
+    [*] --> ErrorLogged
+    ErrorLogged : Error message stored
+    ErrorLogged : Can retry
+}
+
+Failed --> Queued : retry requested
+Failed --> [*] : removed
+
+Parsed --> Reprocessing : schema change / reparse requested
+Reprocessing --> Queued : clear old data
+
+note right of Parsing
+  Progress events emitted
+  to frontend during parsing
+end note
+
+note right of Failed
+  Errors include:
+  - Corrupted demo file
+  - Unsupported demo version
+  - Parser crash
+  - Database errors
+end note
+
+@enduml

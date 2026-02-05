@@ -1,0 +1,1871 @@
+[0;32m[✓][0m Java found: openjdk version "25.0.2" 2026-01-20
+[0;32m[✓][0m PlantUML already downloaded
+[0;32m[✓][0m Generating diagrams...
+[0;32m[✓][0m Generating C4 diagrams...
+[0;32m[✓][0m   Generated: 1-context.png
+[0;32m[✓][0m   Generated: 2-container.png
+[0;32m[✓][0m   Generated: 3-component-frontend.png
+[0;32m[✓][0m   Generated: 3-component-python.png
+[0;32m[✓][0m   Generated: 3-component-rust.png
+[0;32m[✓][0m   Generated: 4-code-parser.png
+[0;32m[✓][0m Generating sequence diagrams...
+[0;32m[✓][0m   Generated: api-sync.png
+[0;32m[✓][0m   Generated: demo-import.png
+[0;32m[✓][0m   Generated: playback.png
+[0;32m[✓][0m Generating class diagrams...
+[0;32m[✓][0m   Generated: domain-models.png
+[0;32m[✓][0m   Generated: python-service.png
+[0;32m[✓][0m Generating state diagrams...
+[0;32m[✓][0m   Generated: app-navigation.png
+[0;32m[✓][0m   Generated: demo-processing.png
+[0;32m[✓][0m All diagrams generated in /home/seamu/Coding/1_Repos/Personal/OutOf5K/docs/latex/figures
+[0;32m[✓][0m Building PDF with xelatex...
+This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2026/dev/Arch Linux) (preloaded format=xelatex)
+ restricted \write18 enabled.
+entering extended mode
+(./main.tex
+LaTeX2e <2024-11-01> patch level 2
+L3 programming layer <2025-01-18>
+(/usr/share/texmf-dist/tex/latex/tufte-latex/tufte-book.cls
+Document Class: tufte-book 2015/06/21 v3.5.2 Tufte-book class
+(/usr/share/texmf-dist/tex/latex/tufte-latex/tufte-common.def
+(/usr/share/texmf-dist/tex/latex/xkeyval/xkeyval.sty
+(/usr/share/texmf-dist/tex/generic/xkeyval/xkeyval.tex
+(/usr/share/texmf-dist/tex/generic/xkeyval/xkvutils.tex
+(/usr/share/texmf-dist/tex/generic/xkeyval/keyval.tex))))
+(/usr/share/texmf-dist/tex/latex/xifthen/xifthen.sty
+(/usr/share/texmf-dist/tex/latex/tools/calc.sty)
+(/usr/share/texmf-dist/tex/latex/base/ifthen.sty)
+(/usr/share/texmf-dist/tex/latex/ifmtarg/ifmtarg.sty))
+(/usr/share/texmf-dist/tex/latex/hardwrap/hardwrap.sty
+(/usr/share/texmf-dist/tex/latex/ifplatform/ifplatform.sty
+(/usr/share/texmf-dist/tex/latex/tools/shellesc.sty)
+(/usr/share/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
+(/usr/share/texmf-dist/tex/generic/infwarerr/infwarerr.sty)
+(/usr/share/texmf-dist/tex/generic/iftex/iftex.sty)
+(/usr/share/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty))
+(/usr/share/texmf-dist/tex/generic/catchfile/catchfile.sty
+(/usr/share/texmf-dist/tex/generic/etexcmds/etexcmds.sty))
+(/usr/share/texmf-dist/tex/generic/iftex/ifluatex.sty)
+
+Package ifplatform Warning: 
+    shell escape is disabled, so I can only detect \ifwindows.
+
+) (/usr/share/texmf-dist/tex/generic/iftex/ifxetex.sty))
+(/usr/share/texmf-dist/tex/latex/base/book.cls
+Document Class: book 2024/06/29 v1.4n Standard LaTeX document class
+(/usr/share/texmf-dist/tex/latex/base/bk10.clo))
+(/usr/share/texmf-dist/tex/generic/iftex/ifpdf.sty)
+(/usr/share/texmf-dist/tex/xelatex/xltxtra/xltxtra.sty
+(/usr/share/texmf-dist/tex/latex/fontspec/fontspec.sty
+(/usr/share/texmf-dist/tex/latex/l3packages/xparse/xparse.sty
+(/usr/share/texmf-dist/tex/latex/l3kernel/expl3.sty
+(/usr/share/texmf-dist/tex/latex/l3backend/l3backend-xetex.def)))
+(/usr/share/texmf-dist/tex/latex/fontspec/fontspec-xetex.sty
+(/usr/share/texmf-dist/tex/latex/base/fontenc.sty)
+(/usr/share/texmf-dist/tex/latex/fontspec/fontspec.cfg)))
+(/usr/share/texmf-dist/tex/latex/realscripts/realscripts.sty)
+(/usr/share/texmf-dist/tex/latex/metalogo/metalogo.sty
+(/usr/share/texmf-dist/tex/latex/graphics/graphicx.sty
+(/usr/share/texmf-dist/tex/latex/graphics/graphics.sty
+(/usr/share/texmf-dist/tex/latex/graphics/trig.sty)
+(/usr/share/texmf-dist/tex/latex/graphics-cfg/graphics.cfg)
+(/usr/share/texmf-dist/tex/latex/graphics-def/xetex.def)))))
+(/usr/share/texmf-dist/tex/latex/titlesec/titlesec.sty)
+(/usr/share/texmf-dist/tex/latex/titlesec/titletoc.sty)
+(/usr/share/texmf-dist/tex/latex/hyperref/hyperref.sty
+(/usr/share/texmf-dist/tex/latex/kvsetkeys/kvsetkeys.sty)
+(/usr/share/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty)
+(/usr/share/texmf-dist/tex/generic/pdfescape/pdfescape.sty)
+(/usr/share/texmf-dist/tex/latex/hycolor/hycolor.sty)
+(/usr/share/texmf-dist/tex/latex/hyperref/nameref.sty
+(/usr/share/texmf-dist/tex/latex/refcount/refcount.sty)
+(/usr/share/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
+(/usr/share/texmf-dist/tex/latex/kvoptions/kvoptions.sty)))
+(/usr/share/texmf-dist/tex/latex/etoolbox/etoolbox.sty)
+(/usr/share/texmf-dist/tex/generic/stringenc/stringenc.sty)
+(/usr/share/texmf-dist/tex/latex/hyperref/pd1enc.def)
+(/usr/share/texmf-dist/tex/generic/intcalc/intcalc.sty)
+(/usr/share/texmf-dist/tex/latex/hyperref/puenc.def)
+(/usr/share/texmf-dist/tex/latex/url/url.sty)
+(/usr/share/texmf-dist/tex/generic/bitset/bitset.sty
+(/usr/share/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty))
+(/usr/share/texmf-dist/tex/latex/base/atbegshi-ltx.sty))
+(/usr/share/texmf-dist/tex/latex/hyperref/hxetex.def
+(/usr/share/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
+(/usr/share/texmf-dist/tex/latex/base/atveryend-ltx.sty)
+(/usr/share/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty)))
+(/usr/share/texmf-dist/tex/latex/ragged2e/ragged2e.sty)
+(/usr/share/texmf-dist/tex/latex/geometry/geometry.sty
+(/usr/share/texmf-dist/tex/generic/iftex/ifvtex.sty))
+(/usr/share/texmf-dist/tex/latex/changepage/changepage.sty)
+(/usr/share/texmf-dist/tex/latex/paralist/paralist.sty)
+(/usr/share/texmf-dist/tex/latex/textcase/textcase.sty)
+(/usr/share/texmf-dist/tex/generic/soul/soul.sty
+(/usr/share/texmf-dist/tex/generic/soul/soul-ori.sty))
+(/usr/share/texmf-dist/tex/latex/setspace/setspace.sty)
+(/usr/share/texmf-dist/tex/latex/xcolor/xcolor.sty
+(/usr/share/texmf-dist/tex/latex/graphics-cfg/color.cfg)
+
+Package xcolor Warning: Package option `usenames' is obsolete and ignored on in
+put line 265.
+
+(/usr/share/texmf-dist/tex/latex/graphics/mathcolor.ltx))
+(/usr/share/texmf-dist/tex/latex/graphics/dvipsnam.def)
+(/usr/share/texmf-dist/tex/latex/xcolor/svgnam.def)
+(/usr/share/texmf-dist/tex/latex/natbib/natbib.sty)
+(/usr/share/texmf-dist/tex/latex/natbib/bibentry.sty) (./main.bbl)
+(/usr/share/texmf-dist/tex/latex/sauerj/optparams.sty)
+(/usr/share/texmf-dist/tex/latex/placeins/placeins.sty)
+(/usr/share/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty)
+(/usr/share/texmf-dist/tex/latex/tools/multicol.sty)))
+(/usr/share/texmf-dist/tex/latex/booktabs/booktabs.sty)
+(/usr/share/texmf-dist/tex/latex/tools/tabularx.sty
+(/usr/share/texmf-dist/tex/latex/tools/array.sty))
+(/usr/share/texmf-dist/tex/latex/tools/longtable.sty)
+(/usr/share/texmf-dist/tex/latex/listings/listings.sty
+(/usr/share/texmf-dist/tex/latex/listings/lstpatch.sty)
+(/usr/share/texmf-dist/tex/latex/listings/lstmisc.sty)
+(/usr/share/texmf-dist/tex/latex/listings/listings.cfg))
+(/usr/share/texmf-dist/tex/latex/microtype/microtype.sty
+(/usr/share/texmf-dist/tex/latex/microtype/microtype-xetex.def)
+(/usr/share/texmf-dist/tex/latex/microtype/microtype.cfg))
+(/usr/share/texmf-dist/tex/latex/lipsum/lipsum.sty
+(/usr/share/texmf-dist/tex/latex/l3packages/l3keys2e/l3keys2e.sty)
+(/usr/share/texmf-dist/tex/latex/lipsum/lipsum.ltd.tex))
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\\' on input line 109.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\afterassignment' on input line 109.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\<def>-command' on input line 109.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\f@size' on input line 109.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\afterassignment' on input line 109.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\<def>-command' on input line 109.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\f@baselineskip' on input line 109.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\<def>-command' on input line 109.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\f@linespread' on input line 109.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\<let>-command' on input line 109.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\baselinestretch' on input line 109.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\<def>-command' on input line 109.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\let' on input line 109.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\<def>-command' on input line 109.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\font@name' on input line 109.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\TU/TeXGyrePagella(0)/m/n/10' on input line
+ 109.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\hook_use:n' on input line 109.
+
+(./main.aux) (./main.out) (./main.out)
+*geometry* driver: auto-detecting
+*geometry* detected driver: xetex
+
+Package microtype Warning: Unable to apply patch `footnote' on input line 114.
+
+(/usr/share/texmf-dist/tex/latex/microtype/mt-Palatino.cfg)
+! Argument of \MakeTextUppercase  has an extra }.
+<inserted text> 
+                \par 
+l.116 \maketitle
+                
+Runaway argument?
+! Paragraph ended before \MakeTextUppercase  was complete.
+<to be read again> 
+                   \par 
+l.116 \maketitle
+                
+! You can't use `\relax' after \the.
+<argument> \the \s__text_recursion_tail 
+                                        
+l.116 \maketitle
+                
+! Use of \__text_expand_space:w doesn't match its definition.
+\__text_expand_loop:w ...1\s__text_recursion_stop 
+                                                  
+l.116 \maketitle
+                
+! Undefined control sequence.
+\__text_expand_store:nw ...__text_expand_result:n 
+                                                  {#3#1}
+l.116 \maketitle
+                
+! Missing number, treated as zero.
+<to be read again> 
+                   {
+l.116 \maketitle
+                
+! Missing { inserted.
+<to be read again> 
+                   }
+l.116 \maketitle
+                
+
+! Package soul Error: Reconstruction failed.
+
+See the soul package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.116 \maketitle
+                
+! Use of \SOUL@n doesn't match its definition.
+<argument> \SOUL@n {
+                    \string 0}\ifx \SOUL@x \SOUL@n \def \SOUL@@ {\SOUL@docmd...
+l.116 \maketitle
+                
+! Argument of \__text_expand_loop:w has an extra }.
+<inserted text> 
+                \par 
+l.116 \maketitle
+                
+Runaway argument?
+\string 0
+! Paragraph ended before \__text_expand_loop:w was complete.
+<to be read again> 
+                   \par 
+l.116 \maketitle
+                
+! Missing number, treated as zero.
+<to be read again> 
+                   {
+l.116 \maketitle
+                
+! Argument of \__text_expand_store:nw has an extra }.
+<inserted text> 
+                \par 
+l.116 \maketitle
+                
+Runaway argument?
+! Paragraph ended before \__text_expand_store:nw was complete.
+<to be read again> 
+                   \par 
+l.116 \maketitle
+                
+! Missing number, treated as zero.
+<to be read again> 
+                   {
+l.116 \maketitle
+                
+! Argument of \__text_change_case_auxi:nnnn has an extra }.
+<inserted text> 
+                \par 
+l.116 \maketitle
+                
+Runaway argument?
+! Paragraph ended before \__text_change_case_auxi:nnnn was complete.
+<to be read again> 
+                   \par 
+l.116 \maketitle
+                
+! Missing number, treated as zero.
+<to be read again> 
+                   {
+l.116 \maketitle
+                
+! Incompatible list can't be unboxed.
+\SOUL@analyze ->{\setbox \z@ \vbox {\unvcopy \z@ 
+                                                 \unskip \unpenalty \global ...
+l.116 \maketitle
+                
+! Undefined control sequence.
+\SOUL@postamble ...obal \skip@ =\SOUL@soouterskip 
+                                                  \aftergroup \SOUL@socheck 
+l.116 \maketitle
+                
+! Missing number, treated as zero.
+<to be read again> 
+                   \aftergroup 
+l.116 \maketitle
+                
+! Illegal unit of measure (pt inserted).
+<to be read again> 
+                   \aftergroup 
+l.116 \maketitle
+                
+
+[1]
+[2] (./main.toc) (./chapters/01-introduction.tex
+[3]
+[4]
+Underfull \hbox (badness 3138) in paragraph at lines 27--27
+\TU/TeXGyrePagella(0)/m/n/8 petitive CS2 player seeking improve-
+(/usr/share/texmf-dist/tex/latex/microtype/mt-cmr.cfg)
+[5]
+
+Package hyperref Warning: Suppressing empty link on input line 75.
+
+
+Package hyperref Warning: Suppressing empty link on input line 76.
+
+
+Package hyperref Warning: Suppressing empty link on input line 77.
+
+) (./chapters/02-architecture.tex
+! Argument of \MakeTextLowercase  has an extra }.
+<inserted text> 
+                \par 
+l.1 \chapter
+            {Architecture}
+Runaway argument?
+! Paragraph ended before \MakeTextLowercase  was complete.
+<to be read again> 
+                   \par 
+l.1 \chapter
+            {Architecture}
+! You can't use `\relax' after \the.
+<argument> \the \s__text_recursion_tail 
+                                        
+l.1 \chapter
+            {Architecture}
+! Use of \__text_expand_space:w doesn't match its definition.
+\__text_expand_loop:w ...1\s__text_recursion_stop 
+                                                  
+l.1 \chapter
+            {Architecture}
+! Undefined control sequence.
+\__text_expand_store:nw ...__text_expand_result:n 
+                                                  {#3#1}
+l.1 \chapter
+            {Architecture}
+! Missing number, treated as zero.
+<to be read again> 
+                   {
+l.1 \chapter
+            {Architecture}
+! Missing { inserted.
+<to be read again> 
+                   }
+l.1 \chapter
+            {Architecture}
+
+! Package soul Error: Reconstruction failed.
+
+See the soul package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1 \chapter
+            {Architecture}
+! Missing } inserted.
+<inserted text> 
+                }
+l.1 \chapter
+            {Architecture}
+[6]
+Overfull \hbox (0.56892pt too wide) in paragraph at lines 9--10
+[]\TU/TeXGyrePagella(0)/m/n/10 All demo processing happens locally on the user’
+s machine,
+
+Overfull \hbox (3.78891pt too wide) in paragraph at lines 13--14
+[]\TU/TeXGyrePagella(0)/m/n/10 Start with essential features and progressively
+
+! LaTeX Error: File `figures/c4/1-context' not found.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.22 ...width=0.9\textwidth]{figures/c4/1-context}
+                                                  
+
+LaTeX Warning: Marginpar on page 7 moved.
+
+
+! LaTeX Error: File `figures/c4/2-container' not found.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.44 ...dth=0.9\textwidth]{figures/c4/2-container}
+                                                  
+
+[7]
+
+! LaTeX Error: File `figures/c4/3-component-frontend' not found.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.101 ...newidth]{figures/c4/3-component-frontend}
+                                                  
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+! Argument of \MakeTextLowercase  has an extra }.
+<inserted text> 
+                \par 
+l.112     \item[Demo Viewer]
+                             Main analysis view with timeline and map
+Runaway argument?
+! Paragraph ended before \MakeTextLowercase  was complete.
+<to be read again> 
+                   \par 
+l.112     \item[Demo Viewer]
+                             Main analysis view with timeline and map
+! You can't use `\relax' after \the.
+<argument> \the \s__text_recursion_tail 
+                                        
+l.112     \item[Demo Viewer]
+                             Main analysis view with timeline and map
+! Use of \__text_expand_space:w doesn't match its definition.
+\__text_expand_loop:w ...1\s__text_recursion_stop 
+                                                  
+l.112     \item[Demo Viewer]
+                             Main analysis view with timeline and map
+! Undefined control sequence.
+\__text_expand_store:nw ...__text_expand_result:n 
+                                                  {#3#1}
+l.112     \item[Demo Viewer]
+                             Main analysis view with timeline and map
+! Missing number, treated as zero.
+<to be read again> 
+                   {
+l.112     \item[Demo Viewer]
+                             Main analysis view with timeline and map
+! Missing { inserted.
+<to be read again> 
+                   }
+l.112     \item[Demo Viewer]
+                             Main analysis view with timeline and map
+
+! Package soul Error: Reconstruction failed.
+
+See the soul package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.112     \item[Demo Viewer]
+                             Main analysis view with timeline and map
+! Missing } inserted.
+<inserted text> 
+                }
+l.112     \item[Demo Viewer]
+                             Main analysis view with timeline and map
+[8]
+
+! LaTeX Error: File `figures/c4/3-component-rust' not found.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.122 ...=\linewidth]{figures/c4/3-component-rust}
+                                                  
+
+! LaTeX Error: File `figures/c4/3-component-python' not found.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.141 ...linewidth]{figures/c4/3-component-python}
+                                                  
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+Package hyperref Warning: Suppressing empty link on input line 174.
+
+) (./chapters/03-data-flow.tex
+! Use of \SOUL@n doesn't match its definition.
+<argument> \SOUL@n {
+                    \string 0}\ifx \SOUL@x \SOUL@n \def \SOUL@@ {\SOUL@docmd...
+l.1 \chapter
+            {Data Flow}
+! Argument of \__text_expand_loop:w has an extra }.
+<inserted text> 
+                \par 
+l.1 \chapter
+            {Data Flow}
+Runaway argument?
+\string 0
+! Paragraph ended before \__text_expand_loop:w was complete.
+<to be read again> 
+                   \par 
+l.1 \chapter
+            {Data Flow}
+! Missing number, treated as zero.
+<to be read again> 
+                   \scan_stop: 
+l.1 \chapter
+            {Data Flow}
+! Argument of \__text_expand_store:nw has an extra }.
+<inserted text> 
+                \par 
+l.1 \chapter
+            {Data Flow}
+Runaway argument?
+! Paragraph ended before \__text_expand_store:nw was complete.
+<to be read again> 
+                   \par 
+l.1 \chapter
+            {Data Flow}
+! Missing number, treated as zero.
+<to be read again> 
+                   \scan_stop: 
+l.1 \chapter
+            {Data Flow}
+! Argument of \__text_expand_store:nw has an extra }.
+<inserted text> 
+                \par 
+l.1 \chapter
+            {Data Flow}
+Runaway argument?
+! Paragraph ended before \__text_expand_store:nw was complete.
+<to be read again> 
+                   \par 
+l.1 \chapter
+            {Data Flow}
+! Missing number, treated as zero.
+<to be read again> 
+                   \scan_stop: 
+l.1 \chapter
+            {Data Flow}
+! Argument of \__text_change_case_auxi:nnnn has an extra }.
+<inserted text> 
+                \par 
+l.1 \chapter
+            {Data Flow}
+Runaway argument?
+! Paragraph ended before \__text_change_case_auxi:nnnn was complete.
+<to be read again> 
+                   \par 
+l.1 \chapter
+            {Data Flow}
+! Missing number, treated as zero.
+<to be read again> 
+                   \scan_stop: 
+l.1 \chapter
+            {Data Flow}
+! Incompatible list can't be unboxed.
+\SOUL@analyze ->{\setbox \z@ \vbox {\unvcopy \z@ 
+                                                 \unskip \unpenalty \global ...
+l.1 \chapter
+            {Data Flow}
+! Undefined control sequence.
+\SOUL@postamble ...obal \skip@ =\SOUL@soouterskip 
+                                                  \aftergroup \SOUL@socheck 
+l.1 \chapter
+            {Data Flow}
+! Missing number, treated as zero.
+<to be read again> 
+                   \aftergroup 
+l.1 \chapter
+            {Data Flow}
+! Illegal unit of measure (pt inserted).
+<to be read again> 
+                   \aftergroup 
+l.1 \chapter
+            {Data Flow}
+! Extra }, or forgotten \endgroup.
+\SOUL@n ...rave \z@ \SOUL@do {#1}\SOUL@postamble }
+                                                  
+l.1 \chapter
+            {Data Flow}
+[9]
+! Argument of \MakeTextLowercase  has an extra }.
+<inserted text> 
+                \par 
+l.1 \chapter
+            {Data Flow}
+Runaway argument?
+! Paragraph ended before \MakeTextLowercase  was complete.
+<to be read again> 
+                   \par 
+l.1 \chapter
+            {Data Flow}
+! You can't use `\relax' after \the.
+<argument> \the \s__text_recursion_tail 
+                                        
+l.1 \chapter
+            {Data Flow}
+! Use of \__text_expand_space:w doesn't match its definition.
+\__text_expand_loop:w ...1\s__text_recursion_stop 
+                                                  
+l.1 \chapter
+            {Data Flow}
+! Undefined control sequence.
+\__text_expand_store:nw ...__text_expand_result:n 
+                                                  {#3#1}
+l.1 \chapter
+            {Data Flow}
+! Missing number, treated as zero.
+<to be read again> 
+                   {
+l.1 \chapter
+            {Data Flow}
+! Missing { inserted.
+<to be read again> 
+                   }
+l.1 \chapter
+            {Data Flow}
+
+! Package soul Error: Reconstruction failed.
+
+See the soul package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1 \chapter
+            {Data Flow}
+! Missing } inserted.
+<inserted text> 
+                }
+l.1 \chapter
+            {Data Flow}
+[10]
+
+! LaTeX Error: File `figures/uml/sequence/demo-import' not found.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.21 ...xtwidth]{figures/uml/sequence/demo-import}
+                                                  
+
+[11]
+! Argument of \MakeTextLowercase  has an extra }.
+<inserted text> 
+                \par 
+l.123  
+          progress: 50,
+Runaway argument?
+! Paragraph ended before \MakeTextLowercase  was complete.
+<to be read again> 
+                   \par 
+l.123  
+          progress: 50,
+! You can't use `\relax' after \the.
+<argument> \the \s__text_recursion_tail 
+                                        
+l.123  
+          progress: 50,
+! Use of \__text_expand_space:w doesn't match its definition.
+\__text_expand_loop:w ...1\s__text_recursion_stop 
+                                                  
+l.123  
+          progress: 50,
+! Undefined control sequence.
+\__text_expand_store:nw ...__text_expand_result:n 
+                                                  {#3#1}
+l.123  
+          progress: 50,
+! Missing number, treated as zero.
+<to be read again> 
+                   {
+l.123  
+          progress: 50,
+! Missing { inserted.
+<to be read again> 
+                   }
+l.123  
+          progress: 50,
+
+! Package soul Error: Reconstruction failed.
+
+See the soul package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.123  
+          progress: 50,
+! Missing } inserted.
+<inserted text> 
+                }
+l.123  
+          progress: 50,
+[12]
+
+! LaTeX Error: File `figures/uml/sequence/playback' not found.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.132 ...linewidth]{figures/uml/sequence/playback}
+                                                  
+
+! LaTeX Error: File `figures/uml/sequence/api-sync' not found.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.151 ...textwidth]{figures/uml/sequence/api-sync}
+                                                  
+(/usr/share/texmf-dist/tex/latex/listings/lstlang1.sty)
+! Use of \SOUL@n doesn't match its definition.
+<argument> \SOUL@n {
+                    \string 0}\ifx \SOUL@x \SOUL@n \def \SOUL@@ {\SOUL@docmd...
+l.183 JOIN 
+           demos d ON pms.demo_id = d.id
+! Argument of \__text_expand_loop:w has an extra }.
+<inserted text> 
+                \par 
+l.183 JOIN 
+           demos d ON pms.demo_id = d.id
+Runaway argument?
+\string 0
+! Paragraph ended before \__text_expand_loop:w was complete.
+<to be read again> 
+                   \par 
+l.183 JOIN 
+           demos d ON pms.demo_id = d.id
+! Missing number, treated as zero.
+<to be read again> 
+                   \scan_stop: 
+l.183 JOIN 
+           demos d ON pms.demo_id = d.id
+! Argument of \__text_expand_store:nw has an extra }.
+<inserted text> 
+                \par 
+l.183 JOIN 
+           demos d ON pms.demo_id = d.id
+Runaway argument?
+! Paragraph ended before \__text_expand_store:nw was complete.
+<to be read again> 
+                   \par 
+l.183 JOIN 
+           demos d ON pms.demo_id = d.id
+! Missing number, treated as zero.
+<to be read again> 
+                   \scan_stop: 
+l.183 JOIN 
+           demos d ON pms.demo_id = d.id
+! Argument of \__text_expand_store:nw has an extra }.
+<inserted text> 
+                \par 
+l.183 JOIN 
+           demos d ON pms.demo_id = d.id
+Runaway argument?
+! Paragraph ended before \__text_expand_store:nw was complete.
+<to be read again> 
+                   \par 
+l.183 JOIN 
+           demos d ON pms.demo_id = d.id
+! Missing number, treated as zero.
+<to be read again> 
+                   \scan_stop: 
+l.183 JOIN 
+           demos d ON pms.demo_id = d.id
+! Argument of \__text_change_case_auxi:nnnn has an extra }.
+<inserted text> 
+                \par 
+l.183 JOIN 
+           demos d ON pms.demo_id = d.id
+Runaway argument?
+! Paragraph ended before \__text_change_case_auxi:nnnn was complete.
+<to be read again> 
+                   \par 
+l.183 JOIN 
+           demos d ON pms.demo_id = d.id
+! Missing number, treated as zero.
+<to be read again> 
+                   \scan_stop: 
+l.183 JOIN 
+           demos d ON pms.demo_id = d.id
+! Undefined control sequence.
+\SOUL@postamble ...obal \skip@ =\SOUL@soouterskip 
+                                                  \aftergroup \SOUL@socheck 
+l.183 JOIN 
+           demos d ON pms.demo_id = d.id
+! Missing number, treated as zero.
+<to be read again> 
+                   \aftergroup 
+l.183 JOIN 
+           demos d ON pms.demo_id = d.id
+! Illegal unit of measure (pt inserted).
+<to be read again> 
+                   \aftergroup 
+l.183 JOIN 
+           demos d ON pms.demo_id = d.id
+! Extra }, or forgotten \endgroup.
+\SOUL@n ...rave \z@ \SOUL@do {#1}\SOUL@postamble }
+                                                  
+l.183 JOIN 
+           demos d ON pms.demo_id = d.id
+[13]
+
+LaTeX Warning: Marginpar on page 14 moved.
+
+) (./chapters/04-patterns.tex
+! Argument of \MakeTextLowercase  has an extra }.
+<inserted text> 
+                \par 
+l.1 \chapter
+            {Design Patterns}
+Runaway argument?
+! Paragraph ended before \MakeTextLowercase  was complete.
+<to be read again> 
+                   \par 
+l.1 \chapter
+            {Design Patterns}
+! You can't use `\relax' after \the.
+<argument> \the \s__text_recursion_tail 
+                                        
+l.1 \chapter
+            {Design Patterns}
+! Use of \__text_expand_space:w doesn't match its definition.
+\__text_expand_loop:w ...1\s__text_recursion_stop 
+                                                  
+l.1 \chapter
+            {Design Patterns}
+! Undefined control sequence.
+\__text_expand_store:nw ...__text_expand_result:n 
+                                                  {#3#1}
+l.1 \chapter
+            {Design Patterns}
+! Missing number, treated as zero.
+<to be read again> 
+                   {
+l.1 \chapter
+            {Design Patterns}
+! Missing { inserted.
+<to be read again> 
+                   }
+l.1 \chapter
+            {Design Patterns}
+
+! Package soul Error: Reconstruction failed.
+
+See the soul package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1 \chapter
+            {Design Patterns}
+! Missing } inserted.
+<inserted text> 
+                }
+l.1 \chapter
+            {Design Patterns}
+[14]
+Overfull \hbox (20.79842pt too wide) in paragraph at lines 4--5
+\TU/TeXGyrePagella(0)/m/sc/10 T h i s c h a p -t e r d e -s c r i b e s \TU/TeX
+GyrePagella(0)/m/n/10 the design patterns used throughout OutOf5K,
+
+Underfull \hbox (badness 10000) in paragraph at lines 25--25
+\TU/TeXGyrePagella(0)/m/n/8 Table 4: Design patterns used in
+
+Underfull \hbox (badness 1033) in paragraph at lines 29--29
+\TU/TeXGyrePagella(0)/m/n/8 The Repository pattern abstracts data
+
+LaTeX Warning: Marginpar on page 15 moved.
+
+
+[15] (/usr/share/texmf-dist/tex/latex/listings/lstlang1.sty)
+(/usr/share/texmf-dist/tex/latex/listings/lstlang2.sty)
+(/usr/share/texmf-dist/tex/latex/listings/lstlang3.sty)
+
+! Package Listings Error: Couldn't load requested language.
+
+See the Listings package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.82 \begin{lstlisting}[language=TypeScript]
+                                            
+
+! Package Listings Error: language javascript undefined.
+
+See the Listings package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.82 \begin{lstlisting}[language=TypeScript]
+                                            
+(/usr/share/texmf-dist/tex/latex/listings/lstlang1.sty)
+(/usr/share/texmf-dist/tex/latex/listings/lstlang2.sty)
+(/usr/share/texmf-dist/tex/latex/listings/lstlang3.sty)
+
+! Package Listings Error: Couldn't load requested language.
+
+See the Listings package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.96 \begin{lstlisting}[language=TypeScript]
+                                            
+
+! Package Listings Error: language javascript undefined.
+
+See the Listings package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.96 \begin{lstlisting}[language=TypeScript]
+                                            
+
+! Argument of \MakeTextLowercase  has an extra }.
+<inserted text> 
+                \par 
+l.123 \begin{lstlisting}[language=Rust]
+                                       
+Runaway argument?
+! Paragraph ended before \MakeTextLowercase  was complete.
+<to be read again> 
+                   \par 
+l.123 \begin{lstlisting}[language=Rust]
+                                       
+! You can't use `\relax' after \the.
+<argument> \the \s__text_recursion_tail 
+                                        
+l.123 \begin{lstlisting}[language=Rust]
+                                       
+! Use of \__text_expand_space:w doesn't match its definition.
+\__text_expand_loop:w ...1\s__text_recursion_stop 
+                                                  
+l.123 \begin{lstlisting}[language=Rust]
+                                       
+! Undefined control sequence.
+\__text_expand_store:nw ...__text_expand_result:n 
+                                                  {#3#1}
+l.123 \begin{lstlisting}[language=Rust]
+                                       
+! Missing number, treated as zero.
+<to be read again> 
+                   {
+l.123 \begin{lstlisting}[language=Rust]
+                                       
+! Missing { inserted.
+<to be read again> 
+                   }
+l.123 \begin{lstlisting}[language=Rust]
+                                       
+
+! Package soul Error: Reconstruction failed.
+
+See the soul package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.123 \begin{lstlisting}[language=Rust]
+                                       
+! Missing } inserted.
+<inserted text> 
+                }
+l.123 \begin{lstlisting}[language=Rust]
+                                       
+[16]
+Underfull \hbox (badness 1348) in paragraph at lines 135--135
+\TU/TeXGyrePagella(0)/m/n/8 out specifying the exact class, useful
+
+LaTeX Warning: Marginpar on page 17 moved.
+
+(/usr/share/texmf-dist/tex/latex/listings/lstlang1.sty)
+! Use of \SOUL@n doesn't match its definition.
+<argument> \SOUL@n {
+                    \string 0}\ifx \SOUL@x \SOUL@n \def \SOUL@@ {\SOUL@docmd...
+l.185 \begin{lstlisting}[language=Rust]
+                                       
+! Argument of \__text_expand_loop:w has an extra }.
+<inserted text> 
+                \par 
+l.185 \begin{lstlisting}[language=Rust]
+                                       
+Runaway argument?
+\string 0
+! Paragraph ended before \__text_expand_loop:w was complete.
+<to be read again> 
+                   \par 
+l.185 \begin{lstlisting}[language=Rust]
+                                       
+! Missing number, treated as zero.
+<to be read again> 
+                   \scan_stop: 
+l.185 \begin{lstlisting}[language=Rust]
+                                       
+! Argument of \__text_expand_store:nw has an extra }.
+<inserted text> 
+                \par 
+l.185 \begin{lstlisting}[language=Rust]
+                                       
+Runaway argument?
+! Paragraph ended before \__text_expand_store:nw was complete.
+<to be read again> 
+                   \par 
+l.185 \begin{lstlisting}[language=Rust]
+                                       
+! Missing number, treated as zero.
+<to be read again> 
+                   \scan_stop: 
+l.185 \begin{lstlisting}[language=Rust]
+                                       
+! Argument of \__text_expand_store:nw has an extra }.
+<inserted text> 
+                \par 
+l.185 \begin{lstlisting}[language=Rust]
+                                       
+Runaway argument?
+! Paragraph ended before \__text_expand_store:nw was complete.
+<to be read again> 
+                   \par 
+l.185 \begin{lstlisting}[language=Rust]
+                                       
+! Missing number, treated as zero.
+<to be read again> 
+                   \scan_stop: 
+l.185 \begin{lstlisting}[language=Rust]
+                                       
+! Argument of \__text_change_case_auxi:nnnn has an extra }.
+<inserted text> 
+                \par 
+l.185 \begin{lstlisting}[language=Rust]
+                                       
+Runaway argument?
+! Paragraph ended before \__text_change_case_auxi:nnnn was complete.
+<to be read again> 
+                   \par 
+l.185 \begin{lstlisting}[language=Rust]
+                                       
+! Missing number, treated as zero.
+<to be read again> 
+                   \scan_stop: 
+l.185 \begin{lstlisting}[language=Rust]
+                                       
+! Incompatible list can't be unboxed.
+\SOUL@analyze ->{\setbox \z@ \vbox {\unvcopy \z@ 
+                                                 \unskip \unpenalty \global ...
+l.185 \begin{lstlisting}[language=Rust]
+                                       
+! Undefined control sequence.
+\SOUL@postamble ...obal \skip@ =\SOUL@soouterskip 
+                                                  \aftergroup \SOUL@socheck 
+l.185 \begin{lstlisting}[language=Rust]
+                                       
+! Missing number, treated as zero.
+<to be read again> 
+                   \aftergroup 
+l.185 \begin{lstlisting}[language=Rust]
+                                       
+! Illegal unit of measure (pt inserted).
+<to be read again> 
+                   \aftergroup 
+l.185 \begin{lstlisting}[language=Rust]
+                                       
+! Extra }, or forgotten \endgroup.
+\SOUL@n ...rave \z@ \SOUL@do {#1}\SOUL@postamble }
+                                                  
+l.185 \begin{lstlisting}[language=Rust]
+                                       
+[17]
+! Argument of \MakeTextLowercase  has an extra }.
+<inserted text> 
+                \par 
+l.244 \begin{lstlisting}[language=Rust]
+                                       
+Runaway argument?
+! Paragraph ended before \MakeTextLowercase  was complete.
+<to be read again> 
+                   \par 
+l.244 \begin{lstlisting}[language=Rust]
+                                       
+! You can't use `\relax' after \the.
+<argument> \the \s__text_recursion_tail 
+                                        
+l.244 \begin{lstlisting}[language=Rust]
+                                       
+! Use of \__text_expand_space:w doesn't match its definition.
+\__text_expand_loop:w ...1\s__text_recursion_stop 
+                                                  
+l.244 \begin{lstlisting}[language=Rust]
+                                       
+! Undefined control sequence.
+\__text_expand_store:nw ...__text_expand_result:n 
+                                                  {#3#1}
+l.244 \begin{lstlisting}[language=Rust]
+                                       
+! Missing number, treated as zero.
+<to be read again> 
+                   {
+l.244 \begin{lstlisting}[language=Rust]
+                                       
+! Missing { inserted.
+<to be read again> 
+                   }
+l.244 \begin{lstlisting}[language=Rust]
+                                       
+
+! Package soul Error: Reconstruction failed.
+
+See the soul package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.244 \begin{lstlisting}[language=Rust]
+                                       
+! Missing } inserted.
+<inserted text> 
+                }
+l.244 \begin{lstlisting}[language=Rust]
+                                       
+[18]) (./chapters/05-decisions.tex
+! Use of \SOUL@n doesn't match its definition.
+<argument> \SOUL@n {
+                    \string 0}\ifx \SOUL@x \SOUL@n \def \SOUL@@ {\SOUL@docmd...
+l.1 \chapter
+            {Architecture Decisions}
+! Argument of \__text_expand_loop:w has an extra }.
+<inserted text> 
+                \par 
+l.1 \chapter
+            {Architecture Decisions}
+Runaway argument?
+\string 0
+! Paragraph ended before \__text_expand_loop:w was complete.
+<to be read again> 
+                   \par 
+l.1 \chapter
+            {Architecture Decisions}
+! Missing number, treated as zero.
+<to be read again> 
+                   \scan_stop: 
+l.1 \chapter
+            {Architecture Decisions}
+! Argument of \__text_expand_store:nw has an extra }.
+<inserted text> 
+                \par 
+l.1 \chapter
+            {Architecture Decisions}
+Runaway argument?
+! Paragraph ended before \__text_expand_store:nw was complete.
+<to be read again> 
+                   \par 
+l.1 \chapter
+            {Architecture Decisions}
+! Missing number, treated as zero.
+<to be read again> 
+                   \scan_stop: 
+l.1 \chapter
+            {Architecture Decisions}
+! Argument of \__text_expand_store:nw has an extra }.
+<inserted text> 
+                \par 
+l.1 \chapter
+            {Architecture Decisions}
+Runaway argument?
+! Paragraph ended before \__text_expand_store:nw was complete.
+<to be read again> 
+                   \par 
+l.1 \chapter
+            {Architecture Decisions}
+! Missing number, treated as zero.
+<to be read again> 
+                   \scan_stop: 
+l.1 \chapter
+            {Architecture Decisions}
+! Argument of \__text_change_case_auxi:nnnn has an extra }.
+<inserted text> 
+                \par 
+l.1 \chapter
+            {Architecture Decisions}
+Runaway argument?
+! Paragraph ended before \__text_change_case_auxi:nnnn was complete.
+<to be read again> 
+                   \par 
+l.1 \chapter
+            {Architecture Decisions}
+! Missing number, treated as zero.
+<to be read again> 
+                   \scan_stop: 
+l.1 \chapter
+            {Architecture Decisions}
+! Incompatible list can't be unboxed.
+\SOUL@analyze ->{\setbox \z@ \vbox {\unvcopy \z@ 
+                                                 \unskip \unpenalty \global ...
+l.1 \chapter
+            {Architecture Decisions}
+! Undefined control sequence.
+\SOUL@postamble ...obal \skip@ =\SOUL@soouterskip 
+                                                  \aftergroup \SOUL@socheck 
+l.1 \chapter
+            {Architecture Decisions}
+! Missing number, treated as zero.
+<to be read again> 
+                   \aftergroup 
+l.1 \chapter
+            {Architecture Decisions}
+! Illegal unit of measure (pt inserted).
+<to be read again> 
+                   \aftergroup 
+l.1 \chapter
+            {Architecture Decisions}
+! Extra }, or forgotten \endgroup.
+\SOUL@n ...rave \z@ \SOUL@do {#1}\SOUL@postamble }
+                                                  
+l.1 \chapter
+            {Architecture Decisions}
+[19]
+[20]
+[21]
+! Argument of \MakeTextLowercase  has an extra }.
+<inserted text> 
+                \par 
+l.98 \section{ADR-004: SQLite as Primary Database}
+                                                  
+Runaway argument?
+! Paragraph ended before \MakeTextLowercase  was complete.
+<to be read again> 
+                   \par 
+l.98 \section{ADR-004: SQLite as Primary Database}
+                                                  
+! You can't use `\relax' after \the.
+<argument> \the \s__text_recursion_tail 
+                                        
+l.98 \section{ADR-004: SQLite as Primary Database}
+                                                  
+! Use of \__text_expand_space:w doesn't match its definition.
+\__text_expand_loop:w ...1\s__text_recursion_stop 
+                                                  
+l.98 \section{ADR-004: SQLite as Primary Database}
+                                                  
+! Undefined control sequence.
+\__text_expand_store:nw ...__text_expand_result:n 
+                                                  {#3#1}
+l.98 \section{ADR-004: SQLite as Primary Database}
+                                                  
+! Missing number, treated as zero.
+<to be read again> 
+                   {
+l.98 \section{ADR-004: SQLite as Primary Database}
+                                                  
+! Missing { inserted.
+<to be read again> 
+                   }
+l.98 \section{ADR-004: SQLite as Primary Database}
+                                                  
+
+! Package soul Error: Reconstruction failed.
+
+See the soul package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.98 \section{ADR-004: SQLite as Primary Database}
+                                                  
+! Missing } inserted.
+<inserted text> 
+                }
+l.98 \section{ADR-004: SQLite as Primary Database}
+                                                  
+[22]
+Overfull \hbox (2.6945pt too wide) in paragraph at lines 101--102
+\TU/TeXGyrePagella(0)/m/n/10 Need persistent storage for demos, events, statist
+ics, and settings. Desk-
+
+Overfull \hbox (13.59811pt too wide) in paragraph at lines 126--127
+\TU/TeXGyrePagella(0)/m/n/10 Documentation requires architecture and UML diagra
+ms that are version-
+
+! Use of \SOUL@n doesn't match its definition.
+<argument> \SOUL@n {
+                    \string 0}\ifx \SOUL@x \SOUL@n \def \SOUL@@ {\SOUL@docmd...
+l.144     \item L
+                 earning curve for syntax
+! Argument of \__text_expand_loop:w has an extra }.
+<inserted text> 
+                \par 
+l.144     \item L
+                 earning curve for syntax
+Runaway argument?
+\string 0
+! Paragraph ended before \__text_expand_loop:w was complete.
+<to be read again> 
+                   \par 
+l.144     \item L
+                 earning curve for syntax
+! Missing number, treated as zero.
+<to be read again> 
+                   \scan_stop: 
+l.144     \item L
+                 earning curve for syntax
+! Argument of \__text_expand_store:nw has an extra }.
+<inserted text> 
+                \par 
+l.144     \item L
+                 earning curve for syntax
+Runaway argument?
+! Paragraph ended before \__text_expand_store:nw was complete.
+<to be read again> 
+                   \par 
+l.144     \item L
+                 earning curve for syntax
+! Missing number, treated as zero.
+<to be read again> 
+                   \scan_stop: 
+l.144     \item L
+                 earning curve for syntax
+! Argument of \__text_expand_store:nw has an extra }.
+<inserted text> 
+                \par 
+l.144     \item L
+                 earning curve for syntax
+Runaway argument?
+! Paragraph ended before \__text_expand_store:nw was complete.
+<to be read again> 
+                   \par 
+l.144     \item L
+                 earning curve for syntax
+! Missing number, treated as zero.
+<to be read again> 
+                   \scan_stop: 
+l.144     \item L
+                 earning curve for syntax
+! Argument of \__text_change_case_auxi:nnnn has an extra }.
+<inserted text> 
+                \par 
+l.144     \item L
+                 earning curve for syntax
+Runaway argument?
+! Paragraph ended before \__text_change_case_auxi:nnnn was complete.
+<to be read again> 
+                   \par 
+l.144     \item L
+                 earning curve for syntax
+! Missing number, treated as zero.
+<to be read again> 
+                   \scan_stop: 
+l.144     \item L
+                 earning curve for syntax
+! Incompatible list can't be unboxed.
+\SOUL@analyze ->{\setbox \z@ \vbox {\unvcopy \z@ 
+                                                 \unskip \unpenalty \global ...
+l.144     \item L
+                 earning curve for syntax
+! Undefined control sequence.
+\SOUL@postamble ...obal \skip@ =\SOUL@soouterskip 
+                                                  \aftergroup \SOUL@socheck 
+l.144     \item L
+                 earning curve for syntax
+! Missing number, treated as zero.
+<to be read again> 
+                   \aftergroup 
+l.144     \item L
+                 earning curve for syntax
+! Illegal unit of measure (pt inserted).
+<to be read again> 
+                   \aftergroup 
+l.144     \item L
+                 earning curve for syntax
+! Extra }, or forgotten \endgroup.
+\SOUL@n ...rave \z@ \SOUL@do {#1}\SOUL@postamble }
+                                                  
+l.144     \item L
+                 earning curve for syntax
+[23]) (./chapters/06-development.tex
+! Argument of \MakeTextLowercase  has an extra }.
+<inserted text> 
+                \par 
+l.1 \chapter
+            {Development}
+Runaway argument?
+! Paragraph ended before \MakeTextLowercase  was complete.
+<to be read again> 
+                   \par 
+l.1 \chapter
+            {Development}
+! You can't use `\relax' after \the.
+<argument> \the \s__text_recursion_tail 
+                                        
+l.1 \chapter
+            {Development}
+! Use of \__text_expand_space:w doesn't match its definition.
+\__text_expand_loop:w ...1\s__text_recursion_stop 
+                                                  
+l.1 \chapter
+            {Development}
+! Undefined control sequence.
+\__text_expand_store:nw ...__text_expand_result:n 
+                                                  {#3#1}
+l.1 \chapter
+            {Development}
+! Missing number, treated as zero.
+<to be read again> 
+                   {
+l.1 \chapter
+            {Development}
+! Missing { inserted.
+<to be read again> 
+                   }
+l.1 \chapter
+            {Development}
+
+! Package soul Error: Reconstruction failed.
+
+See the soul package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1 \chapter
+            {Development}
+! Missing } inserted.
+<inserted text> 
+                }
+l.1 \chapter
+            {Development}
+[24]
+Underfull \hbox (badness 1354) in paragraph at lines 46--46
+\TU/TeXGyrePagella(0)/m/n/8 The codebase is organized into three
+
+LaTeX Warning: Marginpar on page 25 moved.
+
+
+[25]
+! Argument of \MakeTextLowercase  has an extra }.
+<inserted text> 
+                \par 
+l.119 \begin{lstlisting}[language=bash]
+                                       
+Runaway argument?
+! Paragraph ended before \MakeTextLowercase  was complete.
+<to be read again> 
+                   \par 
+l.119 \begin{lstlisting}[language=bash]
+                                       
+! You can't use `\relax' after \the.
+<argument> \the \s__text_recursion_tail 
+                                        
+l.119 \begin{lstlisting}[language=bash]
+                                       
+! Use of \__text_expand_space:w doesn't match its definition.
+\__text_expand_loop:w ...1\s__text_recursion_stop 
+                                                  
+l.119 \begin{lstlisting}[language=bash]
+                                       
+! Undefined control sequence.
+\__text_expand_store:nw ...__text_expand_result:n 
+                                                  {#3#1}
+l.119 \begin{lstlisting}[language=bash]
+                                       
+! Missing number, treated as zero.
+<to be read again> 
+                   {
+l.119 \begin{lstlisting}[language=bash]
+                                       
+! Missing { inserted.
+<to be read again> 
+                   }
+l.119 \begin{lstlisting}[language=bash]
+                                       
+
+! Package soul Error: Reconstruction failed.
+
+See the soul package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.119 \begin{lstlisting}[language=bash]
+                                       
+! Missing } inserted.
+<inserted text> 
+                }
+l.119 \begin{lstlisting}[language=bash]
+                                       
+[26]
+! Use of \SOUL@n doesn't match its definition.
+<argument> \SOUL@n {
+                    \string 0}\ifx \SOUL@x \SOUL@n \def \SOUL@@ {\SOUL@docmd...
+l.179     \item M
+                 ake changes with tests
+! Argument of \__text_expand_loop:w has an extra }.
+<inserted text> 
+                \par 
+l.179     \item M
+                 ake changes with tests
+Runaway argument?
+\string 0
+! Paragraph ended before \__text_expand_loop:w was complete.
+<to be read again> 
+                   \par 
+l.179     \item M
+                 ake changes with tests
+! Missing number, treated as zero.
+<to be read again> 
+                   \scan_stop: 
+l.179     \item M
+                 ake changes with tests
+! Argument of \__text_expand_store:nw has an extra }.
+<inserted text> 
+                \par 
+l.179     \item M
+                 ake changes with tests
+Runaway argument?
+! Paragraph ended before \__text_expand_store:nw was complete.
+<to be read again> 
+                   \par 
+l.179     \item M
+                 ake changes with tests
+! Missing number, treated as zero.
+<to be read again> 
+                   \scan_stop: 
+l.179     \item M
+                 ake changes with tests
+! Argument of \__text_expand_store:nw has an extra }.
+<inserted text> 
+                \par 
+l.179     \item M
+                 ake changes with tests
+Runaway argument?
+! Paragraph ended before \__text_expand_store:nw was complete.
+<to be read again> 
+                   \par 
+l.179     \item M
+                 ake changes with tests
+! Missing number, treated as zero.
+<to be read again> 
+                   \scan_stop: 
+l.179     \item M
+                 ake changes with tests
+! Argument of \__text_change_case_auxi:nnnn has an extra }.
+<inserted text> 
+                \par 
+l.179     \item M
+                 ake changes with tests
+Runaway argument?
+! Paragraph ended before \__text_change_case_auxi:nnnn was complete.
+<to be read again> 
+                   \par 
+l.179     \item M
+                 ake changes with tests
+! Missing number, treated as zero.
+<to be read again> 
+                   \scan_stop: 
+l.179     \item M
+                 ake changes with tests
+! Incompatible list can't be unboxed.
+\SOUL@analyze ->{\setbox \z@ \vbox {\unvcopy \z@ 
+                                                 \unskip \unpenalty \global ...
+l.179     \item M
+                 ake changes with tests
+! Undefined control sequence.
+\SOUL@postamble ...obal \skip@ =\SOUL@soouterskip 
+                                                  \aftergroup \SOUL@socheck 
+l.179     \item M
+                 ake changes with tests
+! Missing number, treated as zero.
+<to be read again> 
+                   \aftergroup 
+l.179     \item M
+                 ake changes with tests
+! Illegal unit of measure (pt inserted).
+<to be read again> 
+                   \aftergroup 
+l.179     \item M
+                 ake changes with tests
+! Extra }, or forgotten \endgroup.
+\SOUL@n ...rave \z@ \SOUL@do {#1}\SOUL@postamble }
+                                                  
+l.179     \item M
+                 ake changes with tests
+[27]) (./chapters/appendix-a-schema.tex
+! Argument of \MakeTextLowercase  has an extra }.
+<inserted text> 
+                \par 
+l.1 \chapter
+            {Database Schema}
+Runaway argument?
+! Paragraph ended before \MakeTextLowercase  was complete.
+<to be read again> 
+                   \par 
+l.1 \chapter
+            {Database Schema}
+! You can't use `\relax' after \the.
+<argument> \the \s__text_recursion_tail 
+                                        
+l.1 \chapter
+            {Database Schema}
+! Use of \__text_expand_space:w doesn't match its definition.
+\__text_expand_loop:w ...1\s__text_recursion_stop 
+                                                  
+l.1 \chapter
+            {Database Schema}
+! Undefined control sequence.
+\__text_expand_store:nw ...__text_expand_result:n 
+                                                  {#3#1}
+l.1 \chapter
+            {Database Schema}
+! Missing number, treated as zero.
+<to be read again> 
+                   {
+l.1 \chapter
+            {Database Schema}
+! Missing { inserted.
+<to be read again> 
+                   }
+l.1 \chapter
+            {Database Schema}
+
+! Package soul Error: Reconstruction failed.
+
+See the soul package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1 \chapter
+            {Database Schema}
+! Missing } inserted.
+<inserted text> 
+                }
+l.1 \chapter
+            {Database Schema}
+[28]
+[29]
+! Argument of \MakeTextLowercase  has an extra }.
+<inserted text> 
+                \par 
+l.114  
+          rating REAL,
+Runaway argument?
+! Paragraph ended before \MakeTextLowercase  was complete.
+<to be read again> 
+                   \par 
+l.114  
+          rating REAL,
+! You can't use `\relax' after \the.
+<argument> \the \s__text_recursion_tail 
+                                        
+l.114  
+          rating REAL,
+! Use of \__text_expand_space:w doesn't match its definition.
+\__text_expand_loop:w ...1\s__text_recursion_stop 
+                                                  
+l.114  
+          rating REAL,
+! Undefined control sequence.
+\__text_expand_store:nw ...__text_expand_result:n 
+                                                  {#3#1}
+l.114  
+          rating REAL,
+! Missing number, treated as zero.
+<to be read again> 
+                   {
+l.114  
+          rating REAL,
+! Missing { inserted.
+<to be read again> 
+                   }
+l.114  
+          rating REAL,
+
+! Package soul Error: Reconstruction failed.
+
+See the soul package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.114  
+          rating REAL,
+! Missing } inserted.
+<inserted text> 
+                }
+l.114  
+          rating REAL,
+[30]
+! Use of \SOUL@n doesn't match its definition.
+<argument> \SOUL@n {
+                    \string 0}\ifx \SOUL@x \SOUL@n \def \SOUL@@ {\SOUL@docmd...
+l.170 \begin{lstlisting}[language=json]
+                                       
+! Argument of \__text_expand_loop:w has an extra }.
+<inserted text> 
+                \par 
+l.170 \begin{lstlisting}[language=json]
+                                       
+Runaway argument?
+\string 0
+! Paragraph ended before \__text_expand_loop:w was complete.
+<to be read again> 
+                   \par 
+l.170 \begin{lstlisting}[language=json]
+                                       
+! Missing number, treated as zero.
+<to be read again> 
+                   \scan_stop: 
+l.170 \begin{lstlisting}[language=json]
+                                       
+! Argument of \__text_expand_store:nw has an extra }.
+<inserted text> 
+                \par 
+l.170 \begin{lstlisting}[language=json]
+                                       
+Runaway argument?
+! Paragraph ended before \__text_expand_store:nw was complete.
+<to be read again> 
+                   \par 
+l.170 \begin{lstlisting}[language=json]
+                                       
+! Missing number, treated as zero.
+<to be read again> 
+                   \scan_stop: 
+l.170 \begin{lstlisting}[language=json]
+                                       
+! Argument of \__text_expand_store:nw has an extra }.
+<inserted text> 
+                \par 
+l.170 \begin{lstlisting}[language=json]
+                                       
+Runaway argument?
+! Paragraph ended before \__text_expand_store:nw was complete.
+<to be read again> 
+                   \par 
+l.170 \begin{lstlisting}[language=json]
+                                       
+! Missing number, treated as zero.
+<to be read again> 
+                   \scan_stop: 
+l.170 \begin{lstlisting}[language=json]
+                                       
+! Argument of \__text_change_case_auxi:nnnn has an extra }.
+<inserted text> 
+                \par 
+l.170 \begin{lstlisting}[language=json]
+                                       
+Runaway argument?
+! Paragraph ended before \__text_change_case_auxi:nnnn was complete.
+<to be read again> 
+                   \par 
+l.170 \begin{lstlisting}[language=json]
+                                       
+! Missing number, treated as zero.
+<to be read again> 
+                   \scan_stop: 
+l.170 \begin{lstlisting}[language=json]
+                                       
+! Incompatible list can't be unboxed.
+\SOUL@analyze ->{\setbox \z@ \vbox {\unvcopy \z@ 
+                                                 \unskip \unpenalty \global ...
+l.170 \begin{lstlisting}[language=json]
+                                       
+! Undefined control sequence.
+\SOUL@postamble ...obal \skip@ =\SOUL@soouterskip 
+                                                  \aftergroup \SOUL@socheck 
+l.170 \begin{lstlisting}[language=json]
+                                       
+! Missing number, treated as zero.
+<to be read again> 
+                   \aftergroup 
+l.170 \begin{lstlisting}[language=json]
+                                       
+! Illegal unit of measure (pt inserted).
+<to be read again> 
+                   \aftergroup 
+l.170 \begin{lstlisting}[language=json]
+                                       
+! Extra }, or forgotten \endgroup.
+\SOUL@n ...rave \z@ \SOUL@do {#1}\SOUL@postamble }
+                                                  
+l.170 \begin{lstlisting}[language=json]
+                                       
+[31])
+
+Package bibentry Warning: You have used \nobibliography* 
+(bibentry)                without a following \bibliography.
+(bibentry)                You may not be able to run BibTeX.
+
+
+! Argument of \MakeTextLowercase  has an extra }.
+<inserted text> 
+                \par 
+l.133 \end{document}
+                    
+Runaway argument?
+! Paragraph ended before \MakeTextLowercase  was complete.
+<to be read again> 
+                   \par 
+l.133 \end{document}
+                    
+! You can't use `\relax' after \the.
+<argument> \the \s__text_recursion_tail 
+                                        
+l.133 \end{document}
+                    
+! Use of \__text_expand_space:w doesn't match its definition.
+\__text_expand_loop:w ...1\s__text_recursion_stop 
+                                                  
+l.133 \end{document}
+                    
+! Undefined control sequence.
+\__text_expand_store:nw ...__text_expand_result:n 
+                                                  {#3#1}
+l.133 \end{document}
+                    
+! Missing number, treated as zero.
+<to be read again> 
+                   {
+l.133 \end{document}
+                    
+! Missing { inserted.
+<to be read again> 
+                   }
+l.133 \end{document}
+                    
+
+! Package soul Error: Reconstruction failed.
+
+See the soul package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.133 \end{document}
+                    
+! Missing } inserted.
+<inserted text> 
+                }
+l.133 \end{document}
+                    
+[32] (./main.aux) )
+(\end occurred when \iffalse on line 116 was incomplete)
+(\end occurred when \ifx on line 116 was incomplete)
+(see the transcript file for additional information)
+Output written on main.pdf (32 pages).
+Transcript written on main.log.

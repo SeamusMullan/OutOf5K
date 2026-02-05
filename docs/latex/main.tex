@@ -1,0 +1,157 @@
+% OutOf5K Technical Documentation
+% Tufte-style book class for beautiful technical documentation
+
+\documentclass[a4paper,justified,notoc]{tufte-book}
+
+% === CRITICAL FIX: Disable soul's text case transformations ===
+% Must be done AFTER \documentclass loads the Tufte class
+% The Tufte class uses textcase package which relies on soul for text transformations
+% Soul breaks on complex content, so we replace it with simpler TeX primitives
+\makeatletter
+\DeclareRobustCommand\MakeTextUppercase{%
+  \def\NoCaseChange##1{\noexpand\NoCaseChange{\noexpand##1}}%
+  \@uclcnotmath{\uppercase}{\def\NoCaseChange##1{##1}}%
+}
+\DeclareRobustCommand\MakeTextLowercase{%
+  \def\NoCaseChange##1{\noexpand\NoCaseChange{\noexpand##1}}%
+  \@uclcnotmath{\lowercase}{\def\NoCaseChange##1{##1}}%
+}
+\makeatother
+
+% === Packages ===
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{microtype}
+\usepackage{lipsum}
+
+% === Font Setup (XeLaTeX) ===
+% Comment these lines if using pdflatex
+\usepackage{fontspec}
+\setmainfont{TeX Gyre Pagella}
+\setsansfont{TeX Gyre Heros}
+\setmonofont{DejaVu Sans Mono}
+
+% === Colors ===
+\definecolor{codeblue}{RGB}{0,102,204}
+\definecolor{codegray}{RGB}{128,128,128}
+\definecolor{codegreen}{RGB}{0,128,0}
+\definecolor{codepurple}{RGB}{128,0,128}
+\definecolor{backcolour}{RGB}{248,248,248}
+
+% === Code Listings ===
+\usepackage{listings}
+
+\lstdefinestyle{codestyle}{
+    backgroundcolor=\color{backcolour},
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{codeblue},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\small,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2,
+    frame=single,
+    framerule=0pt,
+}
+\lstset{style=codestyle}
+
+% Language definitions
+\lstdefinelanguage{Rust}{
+  keywords={fn, let, mut, pub, struct, impl, enum, match, if, else, for, while, loop, return, use, mod, crate, self, Self, async, await, where, trait, type, const, static},
+  morecomment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]",
+  sensitive=true,
+}
+
+\lstdefinelanguage{Svelte}{
+  keywords={script, style, if, else, each, await, then, catch, as, let, const, function, export, import, from},
+  morecomment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]",
+  morestring=[b]',
+  sensitive=true,
+}
+
+\lstdefinelanguage{TypeScript}{
+  morekeywords={type,interface,implements,enum,public,private,protected,readonly,class,constructor,extends,export,import,const,let,var,function,return,if,else,for,while,do,break,continue,switch,case,default,try,catch,finally,throw,new,this,super,static,async,await,void,null,undefined,boolean,number,string,any,never,unknown},
+  morecomment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]",
+  morestring=[b]',
+  morestring=[b]`,
+  sensitive=true,
+}
+
+\lstdefinelanguage{json}{
+  basicstyle=\ttfamily\small,
+  columns=fullflexible,
+  keepspaces=true,
+  showstringspaces=false,
+  string=[s]{"}{"},
+  comment=[l]{//}
+}
+
+\lstdefinelanguage{bash}{
+  keywords={cd,ls,echo,cat,grep,find,sed,awk,exit,if,then,else,fi,for,do,done,while,case,esac},
+  morecomment=[l]{\#},
+  morestring=[b]",
+  morestring=[b]',
+  sensitive=true,
+}
+
+
+% === Hyperref Setup ===
+\hypersetup{
+    colorlinks=true,
+    linkcolor=codeblue,
+    filecolor=codeblue,
+    urlcolor=codeblue,
+    citecolor=codeblue,
+    pdfauthor={OutOf5K Development Team},
+    pdftitle={OutOf5K Technical Documentation},
+}
+
+% === Custom Commands ===
+\newcommand{\outof}{OutOf5K}
+\newcommand{\code}[1]{\texttt{#1}}
+\newcommand{\filepath}[1]{\texttt{#1}}
+
+% === Title ===
+\title{OutOf5K Technical Documentation}
+\author{OutOf5K Development Team}
+\date{\today}
+
+% === Document ===
+\begin{document}
+
+\maketitle
+
+% === Table of Contents ===
+\tableofcontents
+
+% === Chapters ===
+\input{chapters/01-introduction}
+\input{chapters/02-architecture}
+\input{chapters/03-data-flow}
+\input{chapters/04-patterns}
+\input{chapters/05-decisions}
+\input{chapters/06-development}
+
+% === Appendices ===
+\appendix
+\input{chapters/appendix-a-schema}
+
+\end{document}

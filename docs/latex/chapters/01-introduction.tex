@@ -1,0 +1,78 @@
+\chapter{Introduction}
+\label{ch:introduction}
+
+\section{About OutOf5K}
+
+\newthought{OutOf5K} is a desktop application designed to help Counter-Strike 2 players analyze their gameplay, track improvement over time, and learn from professional players. The name refers to the aspiration of becoming one of the top 5,000 players.
+
+\subsection{Vision}
+
+The application aims to provide:
+
+\begin{itemize}
+    \item Comprehensive demo file analysis
+    \item Detailed statistics and performance tracking
+    \item Visual replay and positioning analysis
+    \item Comparison with professional players
+    \item AI-powered coaching insights (future)
+\end{itemize}
+
+\subsection{Target Users}
+
+\outof{} is designed for:
+
+\begin{marginfigure}
+    \centering
+    % \includegraphics[width=\linewidth]{figures/user-persona}
+    \caption{Primary user persona: Competitive CS2 player seeking improvement}
+\end{marginfigure}
+
+\begin{itemize}
+    \item Competitive CS2 players looking to improve
+    \item Teams wanting to review scrims and matches
+    \item Coaches analyzing player performance
+    \item Content creators reviewing highlights
+\end{itemize}
+
+\section{Document Overview}
+
+This documentation provides comprehensive technical details for developing, understanding, and contributing to \outof{}. It is organized as follows:
+
+\begin{description}
+    \item[Chapter 2: Architecture] System design, components, and their interactions
+    \item[Chapter 3: Data Flow] How data moves through the system
+    \item[Chapter 4: Patterns] Design patterns used in the codebase
+    \item[Chapter 5: Decisions] Architecture Decision Records (ADRs)
+    \item[Chapter 6: Development] Setup, workflow, and contribution guidelines
+\end{description}
+
+\section{Technology Stack}
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{@{}lll@{}}
+        \toprule
+        \textbf{Layer} & \textbf{Technology} & \textbf{Purpose} \\
+        \midrule
+        Desktop Shell & Tauri v2 & Native app container \\
+        Frontend & Svelte 5 + TypeScript & User interface \\
+        Styling & TailwindCSS & UI styling \\
+        Visualization & Pixi.js & 2D map rendering \\
+        Backend & Rust & System integration \\
+        Demo Parser & Python + demoparser2 & CS2 demo parsing \\
+        Database & SQLite & Local storage \\
+        \bottomrule
+    \end{tabular}
+    \caption{Technology stack summary}
+    \label{tab:tech-stack}
+\end{table}
+
+\section{Quick Links}
+
+For specific topics, refer to:
+
+\begin{itemize}
+    \item Getting started: Chapter~\ref{ch:development}
+    \item System architecture: Chapter~\ref{ch:architecture}
+    \item Database schema: Appendix~\ref{app:schema}
+\end{itemize}

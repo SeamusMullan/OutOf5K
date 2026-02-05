@@ -1,0 +1,183 @@
+\chapter{Architecture Decisions}
+\label{ch:decisions}
+
+\newthought{This chapter documents} significant architectural decisions using the Architecture Decision Record (ADR) format. Each decision includes context, rationale, and consequences.
+
+\section{ADR-001: Tauri as Desktop Framework}
+
+\subsection{Context}
+OutOf5K requires a desktop application framework that supports:
+\begin{itemize}
+    \item Local file system access for large demo files
+    \item Modern, responsive UI
+    \item Reasonable bundle size for distribution
+    \item Cross-platform support
+\end{itemize}
+
+\subsection{Decision}
+Use \textbf{Tauri v2} as the desktop framework.
+
+\subsection{Consequences}
+
+\textbf{Positive:}
+\begin{itemize}
+    \item Small bundle size (10--20MB vs Electron's 150MB+)
+    \item Better performance with system webview
+    \item Security-first permission model
+    \item Rust backend for performance-critical operations
+\end{itemize}
+
+\textbf{Negative:}
+\begin{itemize}
+    \item Younger ecosystem than Electron
+    \item Webview behavior varies across platforms
+    \item Rust learning curve
+\end{itemize}
+
+\subsection{Alternatives Rejected}
+
+\begin{description}
+    \item[Electron] Large bundle size, higher memory usage
+    \item[Qt/PyQt] Dated look, smaller ecosystem
+    \item[Flutter] Dart unfamiliarity, less mature desktop support
+\end{description}
+
+\section{ADR-002: Svelte as Frontend Framework}
+
+\subsection{Context}
+Need a frontend framework for complex UI including data visualizations, interactive maps, and responsive design.
+
+\subsection{Decision}
+Use \textbf{Svelte 5} with TypeScript.
+
+\subsection{Consequences}
+
+\textbf{Positive:}
+\begin{itemize}
+    \item Minimal boilerplate compared to React
+    \item Excellent performance (compiles to vanilla JS)
+    \item Built-in stores, transitions, animations
+    \item Strong Tauri integration
+\end{itemize}
+
+\textbf{Negative:}
+\begin{itemize}
+    \item Smaller ecosystem than React
+    \item Smaller developer talent pool
+    \item Svelte 5 is relatively new
+\end{itemize}
+
+\section{ADR-003: Python Subprocess for Demo Parsing}
+
+\subsection{Context}
+CS2 demo parsing requires specialized libraries. The best option is \texttt{demoparser2}, a Python library.
+
+\subsection{Decision}
+Use Python as a \textbf{subprocess} communicating via stdin/stdout JSON.
+
+\subsection{Consequences}
+
+\textbf{Positive:}
+\begin{itemize}
+    \item Access to best demo parser (demoparser2)
+    \item Python ecosystem for future ML features
+    \item Process isolation (parser crashes don't affect main app)
+    \item Independent development and testing
+\end{itemize}
+
+\textbf{Negative:}
+\begin{itemize}
+    \item Process spawn overhead
+    \item Distribution complexity (bundle Python or require installation)
+    \item IPC latency
+\end{itemize}
+
+\subsection{Distribution Strategy}
+Use PyInstaller to create a standalone Python executable bundled with the app.
+
+\section{ADR-004: SQLite as Primary Database}
+
+\subsection{Context}
+Need persistent storage for demos, events, statistics, and settings. Desktop app requires zero-configuration setup.
+
+\subsection{Decision}
+Use \textbf{SQLite} accessed via sqlx in Rust.
+
+\subsection{Consequences}
+
+\textbf{Positive:}
+\begin{itemize}
+    \item Zero configuration required
+    \item Single file (easy backup/migration)
+    \item Excellent performance for single-user workloads
+    \item Full SQL support including JSON functions
+\end{itemize}
+
+\textbf{Negative:}
+\begin{itemize}
+    \item Single-writer limitation
+    \item No built-in replication for team features
+    \item Limited full-text search
+\end{itemize}
+
+\section{ADR-005: PlantUML for Diagrams}
+
+\subsection{Context}
+Documentation requires architecture and UML diagrams that are version-controlled and LaTeX-compatible.
+
+\subsection{Decision}
+Use \textbf{PlantUML} for all technical diagrams.
+
+\subsection{Consequences}
+
+\textbf{Positive:}
+\begin{itemize}
+    \item Text-based, version controllable
+    \item Excellent C4 and UML support
+    \item LaTeX-compatible outputs (PDF, PNG, SVG)
+    \item Wide tool support (VS Code, IntelliJ, CLI)
+\end{itemize}
+
+\textbf{Negative:}
+\begin{itemize}
+    \item Requires Java
+    \item Learning curve for syntax
+    \item No native GitHub rendering (unlike Mermaid)
+\end{itemize}
+
+\section{ADR-006: Phased 3D Implementation}
+
+\subsection{Context}
+Users want 3D replay capability, but building a full 3D viewer is complex and time-consuming.
+
+\subsection{Decision}
+Implement visualization in phases:
+\begin{enumerate}
+    \item Phase 1 (MVP): 2D radar-style map
+    \item Phase 2: Enhanced 2D with paths, utility, heatmaps
+    \item Phase 4: 3D replay viewer (scope TBD)
+\end{enumerate}
+
+\subsection{Consequences}
+
+\textbf{Positive:}
+\begin{itemize}
+    \item Ship faster with 2D MVP
+    \item Validate core features before 3D investment
+    \item User feedback informs 3D priorities
+    \item 2D is still valuable for analysis
+\end{itemize}
+
+\textbf{Negative:}
+\begin{itemize}
+    \item Not full-featured initially
+    \item Less exciting for marketing
+\end{itemize}
+
+\subsection{Success Criteria}
+Proceed to 3D only when:
+\begin{itemize}
+    \item Users explicitly request 3D features
+    \item Technical feasibility is proven
+    \item Resources are available
+\end{itemize}

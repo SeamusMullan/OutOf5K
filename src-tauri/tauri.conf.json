@@ -1,0 +1,55 @@
+{
+  "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
+  "productName": "OutOf5K",
+  "version": "0.1.0",
+  "identifier": "com.outof5k.app",
+  "build": {
+    "frontendDist": "../build",
+    "devUrl": "http://localhost:5173",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "OutOf5K - CS2 Gameplay Analyzer",
+        "width": 1280,
+        "height": 800,
+        "minWidth": 800,
+        "minHeight": 600,
+        "resizable": true,
+        "fullscreen": false,
+        "center": true
+      }
+    ],
+    "security": {
+      "csp": null
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ],
+    "category": "Game",
+    "shortDescription": "CS2 gameplay analysis and improvement tool",
+    "longDescription": "OutOf5K helps Counter-Strike 2 players analyze their gameplay, track improvement over time, and learn from professional players by parsing demo files and providing detailed statistics and visualizations."
+  },
+  "plugins": {
+    "shell": {
+      "open": true,
+      "scope": [
+        {
+          "name": "python-parser",
+          "cmd": "python",
+          "args": ["-m", "outof5k_parser"]
+        }
+      ]
+    }
+  }
+}

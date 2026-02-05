@@ -1,0 +1,46 @@
+[project]
+name = "outof5k-parser"
+version = "0.1.0"
+description = "CS2 demo parsing service for OutOf5K"
+readme = "README.md"
+authors = [
+    { name = "Seamus Mullan", email = "43112447+SeamusMullan@users.noreply.github.com" }
+]
+requires-python = ">=3.11"
+dependencies = [
+    "demoparser2>=0.7.0",
+    "pydantic>=2.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-cov>=4.0.0",
+    "ruff>=0.4.0",
+    "mypy>=1.10.0",
+]
+
+[project.scripts]
+outof5k-parser = "outof5k_parser.__main__:main"
+
+[build-system]
+requires = ["uv_build>=0.9.5,<0.10.0"]
+build-backend = "uv_build"
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "B", "C4", "SIM"]
+ignore = ["E501"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+warn_return_any = true
+warn_unused_ignores = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]

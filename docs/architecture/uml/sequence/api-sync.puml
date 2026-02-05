@@ -1,0 +1,162 @@
+@startuml API-Sync-Sequence
+!theme plain
+
+title External API Synchronization - Sequence Diagram
+
+actor User
+participant "Frontend\n(Svelte)" as FE
+participant "API Layer" as API
+participant "Tauri Backend\n(Rust)" as TB
+participant "Auth Service" as AS
+participant "API Clients" as AC
+database "SQLite" as DB
+participant "Steam API" as STEAM
+participant "HLTV" as HLTV
+participant "Faceit API" as FACEIT
+
+== Steam Authentication ==
+
+User -> FE: Click "Connect Steam"
+activate FE
+
+FE -> API: initSteamAuth()
+activate API
+API -> TB: invoke("init_steam_auth")
+activate TB
+
+TB -> AS: start_oauth_flow()
+activate AS
+AS -> AS: Generate state token
+AS -> AS: Build OAuth URL
+AS --> TB: OAuth URL
+deactivate AS
+
+TB -> TB: Open system browser\nwith OAuth URL
+TB --> API: {status: "awaiting_callback"}
+deactivate TB
+API --> FE: Show "Waiting for Steam..."
+deactivate API
+
+note over STEAM: User logs in to Steam\nand authorizes app
+
+STEAM -> TB: OAuth callback with code
+activate TB
+TB -> AS: handle_callback(code)
+activate AS
+AS -> AC: exchange_code(code)
+activate AC
+AC -> STEAM: POST /token
+STEAM --> AC: access_token, refresh_token
+AC --> AS: Tokens
+deactivate AC
+
+AS -> DB: Store encrypted tokens
+AS --> TB: AuthSuccess(steam_id)
+deactivate AS
+
+TB --> FE: Event: auth_complete
+deactivate TB
+FE --> User: "Connected as {username}"
+
+== Fetch Match History ==
+
+FE -> API: syncMatchHistory()
+activate API
+API -> TB: invoke("sync_match_history")
+activate TB
+
+TB -> AC: get_match_history(steam_id)
+activate AC
+AC -> STEAM: GET /ICSGOServers_730/GetGameServersStatus
+STEAM --> AC: Match list
+AC --> TB: Matches[]
+deactivate AC
+
+loop for each match
+    TB -> DB: Check if match exists
+    alt New match
+        TB -> DB: INSERT match
+        TB -> TB: emit("new_match_found")
+    end
+end
+
+TB --> API: SyncResult {new: 5, existing: 20}
+deactivate TB
+API --> FE: Update match list
+deactivate API
+
+FE --> User: "5 new matches found"
+
+== Fetch Pro Player Data ==
+
+User -> FE: Open "Compare with Pros"
+activate FE
+
+FE -> FE: Select player: "s1mple"
+FE -> API: getProPlayerStats("s1mple")
+activate API
+API -> TB: invoke("get_pro_stats", {name: "s1mple"})
+activate TB
+
+TB -> DB: Check cache freshness
+alt Cache valid (< 24h)
+    DB --> TB: Cached stats
+    TB --> API: ProStats (cached)
+else Cache stale or missing
+    TB -> AC: fetch_hltv_player("s1mple")
+    activate AC
+    
+    AC -> HLTV: GET /player/7998/s1mple
+    HLTV --> AC: Player page HTML
+    AC -> AC: Parse HTML for stats
+    AC --> TB: ProPlayerStats
+    deactivate AC
+    
+    TB -> DB: UPDATE cache SET data = ..., fetched_at = NOW()
+    TB --> API: ProStats (fresh)
+end
+
+deactivate TB
+API --> FE: ProStats
+deactivate API
+
+FE -> FE: Display comparison
+
+== Faceit Integration ==
+
+User -> FE: Click "Connect Faceit"
+FE -> API: initFaceitAuth()
+
+note over FE, FACEIT: Similar OAuth flow as Steam
+
+API -> TB: invoke("sync_faceit_matches")
+activate TB
+
+TB -> AC: get_faceit_matches(faceit_id)
+activate AC
+AC -> FACEIT: GET /players/{id}/history
+FACEIT --> AC: Match history
+AC --> TB: Matches[]
+deactivate AC
+
+TB -> TB: Correlate with existing demos\nby match_id or timestamp
+TB -> DB: Update match records\nwith Faceit data (Elo, etc.)
+
+TB --> API: FaceitSyncResult
+deactivate TB
+
+FE --> User: "Faceit data synced"
+
+deactivate FE
+
+== Rate Limiting ==
+
+note over AC
+  All API clients implement:
+  - Request rate limiting
+  - Exponential backoff
+  - Request queuing
+  - Cache-first strategy
+end note
+
+@enduml

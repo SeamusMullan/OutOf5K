@@ -1,0 +1,61 @@
+@startuml OutOf5K-C4-Component-Rust
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+
+title Component Diagram - Tauri Backend (Rust)
+
+Container(frontend, "Frontend", "Svelte", "User interface")
+
+Container_Boundary(tauri_backend, "Tauri Backend Container") {
+    
+    Component(commands, "IPC Commands", "Tauri Commands", "Entry points for frontend requests - demo import, stats queries, settings management")
+    
+    Component(demo_service, "Demo Service", "Rust Module", "Orchestrates demo import workflow, manages parsing state, handles file validation")
+    
+    Component(stats_service, "Statistics Service", "Rust Module", "Calculates aggregated statistics, performance metrics, trend analysis")
+    
+    Component(comparison_service, "Comparison Service", "Rust Module", "Handles pro player comparison logic, ranking calculations")
+    
+    Component(python_bridge, "Python Bridge", "Rust Module", "Manages Python subprocess lifecycle, IPC communication, error handling")
+    
+    Component(api_clients, "External API Clients", "Rust Module", "HTTP clients for Steam, HLTV, Faceit with rate limiting and caching")
+    
+    Component(auth_service, "Auth Service", "Rust Module", "Handles Steam OAuth flow, token management, session handling")
+    
+    Component(db_repository, "Database Repository", "Rust + sqlx", "Data access layer with typed queries, migrations, connection pooling")
+    
+    Component(file_service, "File Service", "Rust Module", "File system operations, demo file watching, path management")
+    
+    Component(event_emitter, "Event Emitter", "Tauri Events", "Emits progress updates, notifications to frontend")
+}
+
+ContainerDb(sqlite, "SQLite", "Database")
+Container(python_service, "Python Service", "Subprocess")
+System_Ext(steam, "Steam API", "External")
+System_Ext(hltv, "HLTV", "External")
+
+Rel(frontend, commands, "Invokes", "Tauri IPC")
+Rel(commands, demo_service, "Delegates demo operations")
+Rel(commands, stats_service, "Delegates stat queries")
+Rel(commands, comparison_service, "Delegates comparisons")
+Rel(commands, auth_service, "Delegates auth")
+
+Rel(demo_service, python_bridge, "Requests parsing")
+Rel(demo_service, db_repository, "Stores parsed data")
+Rel(demo_service, file_service, "Reads demo files")
+Rel(demo_service, event_emitter, "Reports progress")
+
+Rel(stats_service, db_repository, "Queries stats")
+Rel(comparison_service, db_repository, "Queries data")
+Rel(comparison_service, api_clients, "Fetches pro data")
+
+Rel(auth_service, api_clients, "Uses for OAuth")
+Rel(api_clients, steam, "HTTPS")
+Rel(api_clients, hltv, "HTTPS")
+
+Rel(python_bridge, python_service, "stdin/stdout", "JSON")
+Rel(db_repository, sqlite, "SQL")
+Rel(event_emitter, frontend, "Push events", "Tauri Events")
+
+SHOW_LEGEND()
+
+@enduml

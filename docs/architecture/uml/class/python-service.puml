@@ -1,0 +1,234 @@
+@startuml Python-Service-Class
+!theme plain
+
+title Python Service - Class Diagram
+
+package "Core" {
+    
+    class ServiceMain {
+        - handlers: Dict[str, CommandHandler]
+        - running: bool
+        --
+        + __init__()
+        + run(): None
+        + stop(): None
+        - _read_command(): Command
+        - _write_response(response: Response): None
+        - _dispatch(command: Command): Response
+    }
+    
+    interface CommandHandler {
+        + handle(params: dict) -> Response
+    }
+    
+    class Command {
+        + id: str
+        + cmd: str
+        + params: dict
+    }
+    
+    class Response {
+        + id: str
+        + status: ResponseStatus
+        + data: Optional[dict]
+        + error: Optional[str]
+    }
+    
+    enum ResponseStatus {
+        SUCCESS
+        ERROR
+        PROGRESS
+    }
+}
+
+package "Handlers" {
+    
+    class ParseHandler implements CommandHandler {
+        - parser_factory: DemoParserFactory
+        --
+        + handle(params: dict) -> Response
+        - _report_progress(progress: int): None
+    }
+    
+    class MetadataHandler implements CommandHandler {
+        + handle(params: dict) -> Response
+    }
+    
+    class AnalyzeHandler implements CommandHandler {
+        - analyzers: List[Analyzer]
+        --
+        + handle(params: dict) -> Response
+    }
+    
+    class HealthHandler implements CommandHandler {
+        + handle(params: dict) -> Response
+    }
+}
+
+package "Parsing" {
+    
+    class DemoParserFactory {
+        + create(file_path: Path) -> DemoParser
+        - _detect_game_version(path: Path) -> GameVersion
+    }
+    
+    class DemoParser {
+        - file_path: Path
+        - _parser: demoparser2.DemoParser
+        - _events: List[RawEvent]
+        - _metadata: Optional[DemoMetadata]
+        --
+        + __init__(file_path: Path)
+        + parse(progress_callback: Callable) -> ParsedDemo
+        + get_metadata() -> DemoMetadata
+        + get_events(types: List[EventType]) -> List[GameEvent]
+        + get_tick_data(start: int, end: int) -> TickData
+        - _extract_header() -> dict
+        - _parse_game_events() -> List[RawEvent]
+        - _parse_player_positions() -> PositionData
+    }
+    
+    class EventProcessor {
+        - raw_events: List[RawEvent]
+        --
+        + __init__(raw_events: List[RawEvent])
+        + process() -> List[GameEvent]
+        + get_by_type(event_type: EventType) -> List[GameEvent]
+        - _classify_event(raw: RawEvent) -> Optional[GameEvent]
+        - _enrich_kill_event(event: KillEvent) -> KillEvent
+        - _calculate_flash_assists(events: List) -> List[FlashAssist]
+    }
+    
+    class PositionTracker {
+        - tick_positions: Dict[int, Dict[str, Position]]
+        - player_paths: Dict[str, List[Position]]
+        --
+        + __init__(position_data: PositionData)
+        + get_position(player_id: str, tick: int) -> Position
+        + get_path(player_id: str, start_tick: int, end_tick: int) -> List[Position]
+        + interpolate(tick: int) -> Dict[str, Position]
+        + generate_heatmap(player_id: str, resolution: int) -> HeatmapData
+    }
+}
+
+package "Analysis" {
+    
+    interface Analyzer {
+        + analyze(parsed_demo: ParsedDemo) -> AnalysisResult
+    }
+    
+    class StatsCalculator implements Analyzer {
+        --
+        + analyze(parsed_demo: ParsedDemo) -> StatsResult
+        + calculate_round_stats(round: Round) -> RoundStats
+        + calculate_player_stats(player_id: str, demo: ParsedDemo) -> PlayerStats
+        - _calculate_adr(player_id: str, rounds: List[Round]) -> float
+        - _calculate_kast(player_id: str, rounds: List[Round]) -> float
+        - _calculate_rating_2(stats: PlayerStats) -> float
+    }
+    
+    class HighlightDetector implements Analyzer {
+        - thresholds: HighlightThresholds
+        --
+        + analyze(parsed_demo: ParsedDemo) -> HighlightsResult
+        + detect_aces(rounds: List[Round]) -> List[AceHighlight]
+        + detect_clutches(rounds: List[Round]) -> List[ClutchHighlight]
+        + detect_multi_kills(rounds: List[Round]) -> List[MultiKillHighlight]
+        - _analyze_round_for_clutch(round: Round) -> Optional[ClutchHighlight]
+    }
+    
+    class PositionAnalyzer implements Analyzer {
+        --
+        + analyze(parsed_demo: ParsedDemo) -> PositionAnalysisResult
+        + calculate_site_timings(rounds: List[Round]) -> SiteTimings
+        + identify_common_positions(player_id: str) -> List[CommonPosition]
+        + compare_with_reference(player_positions, pro_positions) -> PositionDiff
+    }
+    
+    class UtilityAnalyzer implements Analyzer {
+        - known_lineups: List[KnownLineup]
+        --
+        + analyze(parsed_demo: ParsedDemo) -> UtilityAnalysisResult
+        + categorize_grenades(grenades: List[GrenadeEvent]) -> CategorizedGrenades
+        + match_to_known_lineups(grenade: GrenadeEvent) -> Optional[KnownLineup]
+        + calculate_utility_damage(player_id: str, rounds: List) -> UtilityDamage
+    }
+}
+
+package "Models" {
+    
+    class ParsedDemo <<Pydantic>> {
+        + id: str
+        + file_path: str
+        + metadata: DemoMetadata
+        + rounds: List[Round]
+        + players: List[Player]
+        + events: List[GameEvent]
+    }
+    
+    class DemoMetadata <<Pydantic>> {
+        + map_name: str
+        + played_at: datetime
+        + duration_ticks: int
+        + tickrate: int
+        + server_name: Optional[str]
+    }
+    
+    class Round <<Pydantic>> {
+        + number: int
+        + winner: Team
+        + win_reason: WinReason
+        + start_tick: int
+        + end_tick: int
+    }
+    
+    class GameEvent <<Pydantic>> {
+        + tick: int
+        + round_number: int
+        + event_type: EventType
+        + data: dict
+    }
+    
+    class Position <<Pydantic>> {
+        + x: float
+        + y: float
+        + z: float
+    }
+    
+    class HeatmapData <<Pydantic>> {
+        + resolution: int
+        + bounds: Bounds
+        + data: List[List[float]]
+    }
+}
+
+' Relationships
+ServiceMain "1" *-- "many" CommandHandler
+ServiceMain --> Command : receives
+ServiceMain --> Response : sends
+
+ParseHandler --> DemoParserFactory : uses
+ParseHandler --> EventProcessor : uses
+ParseHandler --> PositionTracker : uses
+
+DemoParserFactory --> DemoParser : creates
+
+DemoParser --> ParsedDemo : produces
+DemoParser --> EventProcessor : creates
+DemoParser --> PositionTracker : creates
+
+AnalyzeHandler --> Analyzer : uses
+
+StatsCalculator --> ParsedDemo : analyzes
+HighlightDetector --> ParsedDemo : analyzes
+PositionAnalyzer --> ParsedDemo : analyzes
+UtilityAnalyzer --> ParsedDemo : analyzes
+
+ParsedDemo *-- DemoMetadata
+ParsedDemo *-- Round
+ParsedDemo *-- GameEvent
+
+PositionTracker --> Position : tracks
+PositionTracker --> HeatmapData : generates
+
+@enduml

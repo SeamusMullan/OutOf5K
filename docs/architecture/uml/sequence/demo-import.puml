@@ -1,0 +1,117 @@
+@startuml Demo-Import-Sequence
+!theme plain
+
+title Demo Import Flow - Sequence Diagram
+
+actor User
+participant "Frontend\n(Svelte)" as FE
+participant "API Layer" as API
+participant "Tauri Backend\n(Rust)" as TB
+participant "Demo Service" as DS
+participant "File Service" as FS
+participant "Python Bridge" as PB
+participant "Python Service" as PS
+database "SQLite" as DB
+
+== User Initiates Import ==
+
+User -> FE: Drag & drop .dem file(s)\nor click "Import"
+activate FE
+
+FE -> API: importDemos(filePaths[])
+activate API
+
+API -> TB: invoke("import_demos", {paths})
+activate TB
+
+TB -> DS: import_demos(paths)
+activate DS
+
+== File Validation ==
+
+loop for each file path
+    DS -> FS: validate_demo_file(path)
+    activate FS
+    FS -> FS: Check file exists
+    FS -> FS: Check .dem extension
+    FS -> FS: Check file size
+    FS --> DS: ValidationResult
+    deactivate FS
+end
+
+DS -> DS: Filter valid files
+
+alt No valid files
+    DS --> TB: Error("No valid demo files")
+    TB --> API: Error
+    API --> FE: Show error toast
+else Has valid files
+    
+    == Store Pending Demos ==
+    
+    loop for each valid file
+        DS -> DB: INSERT demo (status: 'pending')
+        DB --> DS: demo_id
+    end
+    
+    DS --> TB: ImportStarted { demo_ids }
+    TB --> API: ImportStarted
+    API --> FE: Update UI (show progress)
+    
+    == Parse Each Demo ==
+    
+    loop for each demo
+        DS -> TB: emit("demo_progress", {id, status: "parsing", progress: 0})
+        TB --> FE: Event: demo_progress
+        FE -> FE: Update progress bar
+        
+        DS -> PB: parse_demo(file_path)
+        activate PB
+        
+        PB -> PS: {"cmd": "parse", "path": "..."}
+        activate PS
+        
+        note over PS: demoparser2 extracts:\n- Metadata\n- Events\n- Positions\n- Player info
+        
+        PS -> PS: Extract header/metadata
+        PS --> PB: {"progress": 10}
+        PB --> DS: Progress update
+        DS -> TB: emit("demo_progress", {progress: 10})
+        
+        PS -> PS: Parse game events
+        PS --> PB: {"progress": 50}
+        PB --> DS: Progress update
+        DS -> TB: emit("demo_progress", {progress: 50})
+        
+        PS -> PS: Extract positions
+        PS -> PS: Calculate statistics
+        PS --> PB: {"status": "complete", "data": {...}}
+        deactivate PS
+        
+        PB --> DS: ParsedDemo
+        deactivate PB
+        
+        == Store Parsed Data ==
+        
+        DS -> DB: UPDATE demo SET status='parsed', metadata=...
+        DS -> DB: INSERT rounds (batch)
+        DS -> DB: INSERT events (batch)
+        DS -> DB: INSERT player_round_stats (batch)
+        
+        DS -> TB: emit("demo_progress", {id, status: "complete"})
+        TB --> FE: Event: demo_progress
+        FE -> FE: Update UI (show complete)
+    end
+    
+end
+
+deactivate DS
+deactivate TB
+deactivate API
+
+FE -> FE: Refresh demo list
+FE --> User: Show success notification
+
+deactivate FE
+
+@enduml
